@@ -20,6 +20,7 @@ import {
   type ResumedSessionData,
   coreEvents,
   createWorkingStdio,
+  isTmux,
   disableMouseEvents,
   enableMouseEvents,
   disableLineWrapping,
@@ -94,7 +95,9 @@ export async function startInteractiveUI(
   });
   consolePatcher.patch();
 
-  const { stdout: inkStdout, stderr: inkStderr } = createWorkingStdio();
+  const { stdout: inkStdout, stderr: inkStderr } = createWorkingStdio({
+    synchronizedOutput: process.platform !== 'win32' || isTmux(),
+  });
 
   const isShpool = !!process.env['SHPOOL_SESSION_NAME'];
 
