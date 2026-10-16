@@ -1,3 +1,12 @@
+> [!NOTE]
+>
+> **Unpaid tier and Google One users:** Gemini CLI was replaced by Antigravity
+> CLI on June 18th, 2026. To learn more, see our
+> [blog post](https://developers.googleblog.com/an-important-update-transitioning-gemini-cli-to-antigravity-cli).
+>
+> **Gemini CLI has not been optimized for Gemini 4 Argon.** To use Gemini 4
+> Argon, please use Antigravity.
+
 # Gemini CLI
 
 [![Gemini CLI CI](https://github.com/google-gemini/gemini-cli/actions/workflows/ci.yml/badge.svg)](https://github.com/google-gemini/gemini-cli/actions/workflows/ci.yml)
