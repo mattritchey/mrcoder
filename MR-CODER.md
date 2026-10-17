@@ -37,7 +37,21 @@ A fork of
    (`DEFAULT_THEME = MrCoder`). All upstream themes are still available via
    `/theme`.
 
-3. **Nothing else.** All features, tools, settings, auth, MCP, extensions, and
+   One upstream behavior had to be patched for the theme to actually engage:
+   `setupTerminalAndTheme` used to exact-match the detected terminal background
+   against every theme's Background color before falling back to the default,
+   and upstream Default's Background is #000000 — so on any black terminal the
+   picker silently chose "Default" over the fork default. mr-coder now starts on
+   DEFAULT_THEME unless a theme was picked via /theme or settings.
+
+3. **Header branding:** the interactive header title reads "Mr Coder" and the
+   Gemini spark icon is replaced with a pixel "M" monogram
+   (`packages/cli/src/ui/components/AppHeader.tsx`). All GEMINI word-art in
+   AsciiArt.ts (short/long/tiny + compact variants) is redrawn to read "MR
+   CODER" — the M and E block glyphs are upstream's own, C/O/D/R were drawn in
+   the same stroke idiom.
+
+4. **Nothing else.** All features, tools, settings, auth, MCP, extensions, and
    the Gemini wire protocol are unchanged. Internal workspace packages
    (`@google/gemini-cli-core`, etc.) and `GEMINI_*` / `GOOGLE_GEMINI_*`
    environment variables keep their upstream names — they are APIs, not
@@ -54,8 +68,8 @@ mr-coder
 
 ## Zen bridge wiring (eval harness)
 
-Mr Coder joins the Zen harness shelf on its own port, **:4054** (slug
-`mrcoder`), separate from Gemini CLI's :4036 — the bridge's `/v1beta`
+Mr Coder joins the Zen harness shelf on its own port, **:4054** (harness
+name/slug `mr-coder`), separate from Gemini CLI's :4036 — the bridge's `/v1beta`
 Gemini-wire routes serve both, since mr-coder speaks the same protocol.
 
 Wrapper `~/.local/bin/mr-coder-zen` (Mac):

@@ -9,7 +9,6 @@ import {
   terminalCapabilityManager,
 } from '../ui/utils/terminalCapabilityManager.js';
 import { themeManager, DEFAULT_THEME } from '../ui/themes/theme-manager.js';
-import { pickDefaultThemeName } from '../ui/themes/theme.js';
 import { getThemeTypeFromBackgroundColor } from '../ui/themes/color-utils.js';
 import type { LoadedSettings } from '../config/settings.js';
 import { type Config, coreEvents, debugLogger } from '@google/gemini-cli-core';
@@ -43,14 +42,13 @@ export async function setupTerminalAndTheme(
       );
     }
   } else {
-    // If no theme is set, check terminal background color
-    const themeName = pickDefaultThemeName(
-      terminalBackground,
-      themeManager.getAllThemes(),
-      DEFAULT_THEME.name,
-      'Default Light',
-    );
-    themeManager.setActiveTheme(themeName);
+    // mr-coder fork: always start on the fork's default theme (Mr Coder).
+    // Upstream's pickDefaultThemeName() first exact-matches the detected
+    // terminal background against every theme's Background color, and
+    // DefaultDark's Background is #000000 — so on any black terminal it
+    // silently returned "Default" and overrode the fork's default theme.
+    // A theme the user picks via /theme or settings still wins (above).
+    themeManager.setActiveTheme(DEFAULT_THEME.name);
   }
 
   config.setTerminalBackground(terminalBackground);

@@ -266,7 +266,8 @@ describe('<AppHeader />', () => {
     await waitUntilReady();
 
     // Check for block characters from the logo
-    expect(lastFrame()).toContain('▗█▀▀▜▙');
+    // mr-coder fork: the full logo is now the MR CODER compact art.
+    expect(lastFrame()).toContain('▙▗▌ ▜▀▖');
     expect(lastFrame()).toMatchSnapshot();
     unmount();
   });
