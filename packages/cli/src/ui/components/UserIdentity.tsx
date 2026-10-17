@@ -54,7 +54,11 @@ export const UserIdentity: React.FC<UserIdentityProps> = ({ config }) => {
               {email ? ` ${email}` : ''}
             </Text>
           ) : (
-            `Authenticated with ${authType}`
+            `Authenticated with ${
+              // mr-coder fork: display-only relabel; the stored auth
+              // type value stays 'gemini-api-key' for settings compat.
+              authType === AuthType.USE_GEMINI ? 'mr-coder-api-key' : authType
+            }`
           )}
         </Text>
         <Text color={theme.text.secondary}> /auth</Text>

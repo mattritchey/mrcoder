@@ -2342,7 +2342,7 @@ export async function createTransport(
   if (mcpServerConfig.command) {
     if (!cliConfig.isTrustedFolder()) {
       throw new Error(
-        `MCP server '${mcpServerName}' uses stdio transport but current folder is not trusted. Use 'gemini trust' to enable it.`,
+        `MCP server '${mcpServerName}' uses stdio transport but current folder is not trusted. Use 'mr-coder trust' to enable it.`,
       );
     }
     const extensionEnv = getExtensionEnvironment(mcpServerConfig.extension);

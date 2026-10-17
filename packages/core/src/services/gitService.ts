@@ -24,7 +24,7 @@ import {
 } from './environmentSanitization.js';
 import { getSafeGitEnv } from '../utils/gitUtils.js';
 
-export const SHADOW_REPO_AUTHOR_NAME = 'Gemini CLI';
+export const SHADOW_REPO_AUTHOR_NAME = 'Mr Coder';
 export const SHADOW_REPO_AUTHOR_EMAIL = 'gemini-cli@google.com';
 
 const SHADOW_REPO_UNSAFE_OPTIONS = {

@@ -26,7 +26,7 @@
  *   diffAddedBg                  #20303b
  *   diffRemovedBg                #37222c
  *
- * All other Gemini CLI features are unchanged; this is a theme only.
+ * All other Mr Coder features are unchanged; this is a theme only.
  */
 
 import type { ColorsTheme } from '../../theme.js';

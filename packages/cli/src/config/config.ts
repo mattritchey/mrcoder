@@ -16,8 +16,6 @@ import { hooksCommand } from '../commands/hooks.js';
 import { gemmaCommand } from '../commands/gemma.js';
 import {
   setGeminiMdFilename as setServerGeminiMdFilename,
-  resetGeminiMdFilename,
-  DEFAULT_CONTEXT_FILENAME,
   ApprovalMode,
   DEFAULT_GEMINI_EMBEDDING_MODEL,
   DEFAULT_FILE_FILTERING_OPTIONS,
@@ -167,7 +165,7 @@ export async function parseArguments(
     .locale('en')
     .scriptName('mr-coder')
     .usage(
-      'Usage: mr-coder [options] [command]\n\nMr Coder (a fork of Gemini CLI) - Defaults to interactive mode. Use -p/--prompt for non-interactive (headless) mode.',
+      'Usage: mr-coder [options] [command]\n\nMr Coder (a fork of Mr Coder) - Defaults to interactive mode. Use -p/--prompt for non-interactive (headless) mode.',
     )
     .option('isCommand', {
       type: 'boolean',
@@ -279,7 +277,7 @@ export async function parseArguments(
   yargsInstance.command(gemmaCommand);
 
   yargsInstance
-    .command('$0 [query..]', 'Launch Gemini CLI', (yargsInstance) =>
+    .command('$0 [query..]', 'Launch Mr Coder', (yargsInstance) =>
       yargsInstance
         .positional('query', {
           description:
@@ -315,7 +313,7 @@ export async function parseArguments(
           type: 'string',
           skipValidation: true,
           description:
-            'Start Gemini in a new git worktree. If no name is provided, one is generated automatically.',
+            'Start Mr Coder in a new git worktree. If no name is provided, one is generated automatically.',
           coerce: (value: unknown): string => {
             const trimmed = typeof value === 'string' ? value.trim() : '';
             if (trimmed === '') {
@@ -407,8 +405,8 @@ export async function parseArguments(
           description:
             'Resume a previous session. Use "latest" for most recent or index number (e.g. --resume 5)',
           coerce: (value: string): string => {
-            // When --resume passed with a value (`gemini --resume 123`): value = "123" (string)
-            // When --resume passed without a value (`gemini --resume`): value = "" (string)
+            // When --resume passed with a value (`mr-coder --resume 123`): value = "123" (string)
+            // When --resume passed without a value (`mr-coder --resume`): value = "" (string)
             // When --resume not passed at all: this `coerce` function is not called at all, and
             //   `yargsInstance.argv.resume` is undefined.
             const trimmed = value.trim();
@@ -623,8 +621,9 @@ export async function loadCliConfig(
   if (settings.context?.fileName) {
     setServerGeminiMdFilename(settings.context.fileName);
   } else {
-    // Reset to default if not provided in settings.
-    resetGeminiMdFilename(DEFAULT_CONTEXT_FILENAME);
+    // mr-coder fork: MR-CODER.md is the primary context filename;
+    // GEMINI.md is still discovered so existing projects keep working.
+    setServerGeminiMdFilename(['MR-CODER.md', 'GEMINI.md']);
   }
 
   const fileService = new FileDiscoveryService(cwd);

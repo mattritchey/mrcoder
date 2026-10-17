@@ -422,7 +422,7 @@ Would you like to attempt to install via "git clone" instead?`,
             .map((s) => s.name)
             .join(
               ', ',
-            )}. Please run "gemini extensions config ${newExtensionConfig.name} [setting-name]" to configure them.`;
+            )}. Please run "mr-coder extensions config ${newExtensionConfig.name} [setting-name]" to configure them.`;
           debugLogger.warn(message);
           coreEvents.emitFeedback('warning', message);
         }
@@ -1291,7 +1291,7 @@ export async function copyExtension(
 
 function getContextFileNames(config: ExtensionConfig): string[] {
   if (!config.contextFileName) {
-    return ['GEMINI.md'];
+    return ['MR-CODER.md'];
   } else if (!Array.isArray(config.contextFileName)) {
     return [config.contextFileName];
   }

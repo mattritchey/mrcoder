@@ -8,10 +8,10 @@ import * as path from 'node:path';
 import { Storage } from '../config/storage.js';
 import { resolveToRealPath } from '../utils/paths.js';
 
-export const DEFAULT_CONTEXT_FILENAME = 'GEMINI.md';
+export const DEFAULT_CONTEXT_FILENAME = 'MR-CODER.md';
 export const PROJECT_MEMORY_INDEX_FILENAME = 'MEMORY.md';
 
-// This variable will hold the currently configured filenames for GEMINI.md context files.
+// This variable will hold the currently configured filenames for MR-CODER.md context files.
 // It defaults to DEFAULT_CONTEXT_FILENAME but can be extended by setGeminiMdFilename.
 let currentGeminiMdFilename: string | string[] = DEFAULT_CONTEXT_FILENAME;
 

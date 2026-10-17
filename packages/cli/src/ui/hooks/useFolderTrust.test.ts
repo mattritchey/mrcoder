@@ -163,7 +163,7 @@ describe('useFolderTrust', () => {
     );
     expect(addItem).toHaveBeenCalledWith(
       {
-        text: 'This folder is untrusted, project settings, hooks, MCPs, and GEMINI.md files will not be applied for this folder.\nUse the `/permissions` command to change the trust level.',
+        text: 'This folder is untrusted, project settings, hooks, MCPs, and MR-CODER.md files will not be applied for this folder.\nUse the `/permissions` command to change the trust level.',
         type: 'info',
       },
       expect.any(Number),
@@ -365,7 +365,7 @@ describe('useFolderTrust', () => {
 
     expect(emitFeedbackSpy).toHaveBeenCalledWith(
       'error',
-      'Failed to save trust settings. Exiting Gemini CLI.',
+      'Failed to save trust settings. Exiting Mr Coder.',
     );
     expect(mockedExit).toHaveBeenCalledWith(ExitCodes.FATAL_CONFIG_ERROR);
   });

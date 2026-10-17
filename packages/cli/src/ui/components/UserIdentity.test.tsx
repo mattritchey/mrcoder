@@ -153,7 +153,7 @@ describe('<UserIdentity />', () => {
     );
 
     const output = lastFrame();
-    expect(output).toContain(`Authenticated with ${AuthType.USE_GEMINI}`);
+    expect(output).toContain('Authenticated with mr-coder-api-key');
     expect(output).toContain('/auth');
     expect(output).not.toContain('/upgrade');
     unmount();

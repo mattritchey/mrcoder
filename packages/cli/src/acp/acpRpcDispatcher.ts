@@ -52,8 +52,8 @@ export class GeminiAgent {
       },
       {
         id: AuthType.USE_GEMINI,
-        name: 'Gemini API key',
-        description: 'Use an API key with Gemini Developer API',
+        name: 'Mr Coder API key',
+        description: 'Use an API key with the Mr Coder API',
         _meta: {
           'api-key': {
             provider: 'google',
@@ -85,7 +85,7 @@ export class GeminiAgent {
       authMethods,
       agentInfo: {
         name: 'gemini-cli',
-        title: 'Gemini CLI',
+        title: 'Mr Coder',
         version,
       },
       agentCapabilities: {

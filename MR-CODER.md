@@ -51,11 +51,34 @@ A fork of
    CODER" — the M and E block glyphs are upstream's own, C/O/D/R were drawn in
    the same stroke idiom.
 
-4. **Nothing else.** All features, tools, settings, auth, MCP, extensions, and
-   the Gemini wire protocol are unchanged. Internal workspace packages
-   (`@google/gemini-cli-core`, etc.) and `GEMINI_*` / `GOOGLE_GEMINI_*`
-   environment variables keep their upstream names — they are APIs, not
-   branding.
+4. **Display rename (round 4).** Every user-visible "Gemini CLI" string is now
+   "Mr Coder": --help text, slash-command descriptions, the startup tips, the
+   system prompt ("This is Mr Coder…"), auth dialogs, the window title, and
+   command examples (`mr-coder mcp add`, `mr-coder --resume`, …). The header
+   auth line reads "Authenticated with mr-coder-api-key" (display-only — the
+   stored auth type value is unchanged). The rename was applied by
+   `round4-rename.py` (kept in the repo root for provenance; 144 files,
+   deterministic string ops).
+
+5. **Context files:** the primary context filename is now **MR-CODER.md** (tips,
+   /init, /memory, and the model prompts all use it). **GEMINI.md files are
+   still discovered** alongside it (`['MR-CODER.md', 'GEMINI.md']` in
+   `packages/cli/src/config/config.ts`), so existing projects keep working
+   untouched.
+
+6. **Flat theme colors:** upstream blends panel/message/border colors toward the
+   detected terminal background, which washes the theme out. mr-coder renders
+   theme colors flat, MiMo-style
+   (`themeManager.setTerminalBackground(undefined)` in
+   `packages/cli/src/utils/terminalTheme.ts`).
+
+7. **Nothing else.** All features, tools, settings, auth, MCP, extensions, and
+   the Gemini wire protocol are unchanged. Functional identifiers keep their
+   upstream names — they are APIs, not branding: workspace packages
+   (`@google/gemini-cli-core`), `GEMINI_*` / `GOOGLE_GEMINI_*` env vars, the
+   `~/.gemini` settings dir, `.geminiignore`, keychain service names, telemetry
+   keys, Google's model IDs (`gemini-2.5-*`, `gemini-3-*`), and real Google
+   service names (Gemini Live API, Gemini Code Assist).
 
 ## Build & run (from a clone)
 

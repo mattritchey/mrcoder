@@ -112,7 +112,7 @@ export const GemmaStatus: React.FC<GemmaStatusProps> = ({
         </Box>
       ) : (
         <Text color={theme.status.warning}>
-          Run &quot;gemini gemma setup&quot; to install and configure.
+          Run &quot;mr-coder gemma setup&quot; to install and configure.
         </Text>
       )}
     </Box>

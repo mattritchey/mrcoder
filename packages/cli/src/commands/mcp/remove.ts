@@ -4,7 +4,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-// File for 'gemini mcp remove' command
+// File for 'mr-coder mcp remove' command
 import type { CommandModule } from 'yargs';
 import {
   loadSettings,
@@ -64,7 +64,7 @@ export const removeCommand: CommandModule = {
   describe: 'Remove a server',
   builder: (yargs) =>
     yargs
-      .usage('Usage: gemini mcp remove [options] <name>')
+      .usage('Usage: mr-coder mcp remove [options] <name>')
       .positional('name', {
         describe: 'Name of the server',
         type: 'string',

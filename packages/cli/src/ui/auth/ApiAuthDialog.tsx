@@ -106,7 +106,7 @@ export function ApiAuthDialog({
       width="100%"
     >
       <Text bold color={theme.text.primary}>
-        Enter Gemini API Key
+        Enter Mr Coder API Key
       </Text>
       <Box marginTop={1} flexDirection="column">
         <Text color={theme.text.primary}>

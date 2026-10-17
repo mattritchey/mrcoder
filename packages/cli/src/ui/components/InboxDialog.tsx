@@ -122,7 +122,7 @@ const PATCH_ACTION_CHOICES: PatchAction[] = [
 ];
 
 // Dismiss-first: memory patches modify durable on-disk state outside the
-// project (private MEMORY.md and sibling files, plus ~/.gemini/GEMINI.md),
+// project (private MEMORY.md and sibling files, plus ~/.gemini/MR-CODER.md),
 // so a stray Enter on a freshly-opened memory-patch preview must NOT apply.
 // The lower-stakes skill-patch list (PATCH_ACTION_CHOICES) keeps Apply as
 // the default.

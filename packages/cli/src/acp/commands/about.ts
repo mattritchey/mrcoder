@@ -60,7 +60,7 @@ export class AboutCommand implements Command {
 
     return {
       name: this.name,
-      data: `Gemini CLI Info:\n${info}`,
+      data: `Mr Coder Info:\n${info}`,
     };
   }
 }
