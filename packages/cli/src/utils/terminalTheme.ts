@@ -13,6 +13,11 @@ import { getThemeTypeFromBackgroundColor } from '../ui/themes/color-utils.js';
 import type { LoadedSettings } from '../config/settings.js';
 import { type Config, coreEvents, debugLogger } from '@google/gemini-cli-core';
 
+// mr-coder fork: the terminal canvas is painted with the active theme's
+// Background color from inside the UI tree (see AppContainer.tsx) —
+// writes to stdout during startup, before the UI mounts, do not reach
+// the terminal reliably in this app's supervisor/child process layout.
+
 /**
  * Detects terminal capabilities, loads themes, and sets the active theme.
  * @param config The application config.

@@ -77,7 +77,11 @@ export function useTerminalTheme(
       }
 
       config.setTerminalBackground(hexColor);
-      themeManager.setTerminalBackground(hexColor);
+      // mr-coder fork: do NOT re-enable upstream's color blending when
+      // the terminal background changes mid-session — the fork renders
+      // theme colors flat and paints the canvas itself (see
+      // utils/terminalTheme.ts), so blending toward the reported
+      // background would only wash the palette out again.
 
       if (newTheme) {
         void handleThemeSelect(newTheme, SettingScope.User);
