@@ -23,6 +23,7 @@ import {
   AppContext as InkAppContext,
 } from 'ink';
 import { App } from './App.js';
+import { themeManager } from './themes/theme-manager.js';
 import { AppContext } from './contexts/AppContext.js';
 import { UIStateContext, type UIState } from './contexts/UIStateContext.js';
 import { QuotaContext } from './contexts/QuotaContext.js';
@@ -906,6 +907,35 @@ export const AppContainer = (props: AppContainerProps) => {
   );
   // Poll for terminal background color changes to auto-switch theme
   useTerminalTheme(handleThemeSelect, config, refreshStatic);
+
+  // mr-coder fork: paint the terminal canvas with the active theme's
+  // Background color (OSC 11 set), the way full-screen TUIs like MiMo
+  // Code own their background. Upstream never paints the canvas, so the
+  // area around the UI showed the terminal's own background instead of
+  // the theme's. Repaints when the theme changes; the terminal's
+  // original (startup-detected) background is restored on unmount.
+  // Terminals that do not support OSC 11 set simply ignore it.
+  const paintedCanvasRef = useRef<string | undefined>(undefined);
+  useEffect(() => {
+    if (!stdout?.isTTY || process.env['NO_COLOR']) {
+      return;
+    }
+    const background = themeManager.getActiveTheme().colors.Background;
+    if (background && paintedCanvasRef.current !== background) {
+      paintedCanvasRef.current = background;
+      stdout.write(`\x1b]11;${background}\x07`);
+    }
+  });
+  useEffect(
+    () => () => {
+      const original = config.getTerminalBackground();
+      if (original && paintedCanvasRef.current !== undefined) {
+        stdout?.write(`\x1b]11;${original}\x07`);
+      }
+    },
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [],
+  );
   const {
     authState,
     setAuthState,

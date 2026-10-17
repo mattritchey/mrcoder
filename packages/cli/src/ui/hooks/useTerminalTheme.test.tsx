@@ -143,7 +143,11 @@ describe('useTerminalTheme', () => {
     handler('rgb:ffff/ffff/ffff');
 
     expect(config.setTerminalBackground).toHaveBeenCalledWith('#ffffff');
-    expect(themeManager.setTerminalBackground).toHaveBeenCalledWith('#ffffff');
+    // mr-coder fork: the hook must NOT re-enable upstream color blending
+    // when the terminal background changes (flat theme colors by design).
+    expect(themeManager.setTerminalBackground).not.toHaveBeenCalledWith(
+      '#ffffff',
+    );
     expect(refreshStatic).not.toHaveBeenCalled();
     expect(mockHandleThemeSelect).toHaveBeenCalledWith(
       'default-light',
@@ -167,7 +171,10 @@ describe('useTerminalTheme', () => {
     handler('rgb:0000/0000/0000');
 
     expect(config.setTerminalBackground).toHaveBeenCalledWith('#000000');
-    expect(themeManager.setTerminalBackground).toHaveBeenCalledWith('#000000');
+    // mr-coder fork: see above — no re-blending on background change.
+    expect(themeManager.setTerminalBackground).not.toHaveBeenCalledWith(
+      '#000000',
+    );
     expect(refreshStatic).not.toHaveBeenCalled();
     expect(mockHandleThemeSelect).toHaveBeenCalledWith(
       'default',

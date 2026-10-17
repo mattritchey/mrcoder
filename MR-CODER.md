@@ -72,7 +72,18 @@ A fork of
    (`themeManager.setTerminalBackground(undefined)` in
    `packages/cli/src/utils/terminalTheme.ts`).
 
-7. **Nothing else.** All features, tools, settings, auth, MCP, extensions, and
+7. **Painted canvas (round 5):** the app now sets the terminal's background
+   color (OSC 11) to the active theme's Background — MiMo Code paints its whole
+   canvas; upstream never did, so the window background stayed whatever the
+   terminal profile used. Implemented as an effect in
+   `packages/cli/src/ui/AppContainer.tsx` (repaints on theme change, restores
+   the terminal's original background on exit; it must live in the UI tree —
+   stdout writes before the UI mounts do not reach the terminal in this app's
+   supervisor/child process layout). The `useTerminalTheme` hook no longer
+   re-enables upstream's blending when the terminal background changes
+   mid-session.
+
+8. **Nothing else.** All features, tools, settings, auth, MCP, extensions, and
    the Gemini wire protocol are unchanged. Functional identifiers keep their
    upstream names — they are APIs, not branding: workspace packages
    (`@google/gemini-cli-core`), `GEMINI_*` / `GOOGLE_GEMINI_*` env vars, the
