@@ -1,377 +1,165 @@
-> [!NOTE]
->
-> **Unpaid tier and Google One users:** Gemini CLI was replaced by Antigravity
-> CLI on June 18th, 2026. To learn more, see our
-> [blog post](https://developers.googleblog.com/an-important-update-transitioning-gemini-cli-to-antigravity-cli).
->
-> **Gemini CLI has not been optimized for Gemini 4 Argon.** To use Gemini 4
-> Argon, please use Antigravity.
+# Mr Coder
 
-# Gemini CLI
-
-[![Gemini CLI CI](https://github.com/google-gemini/gemini-cli/actions/workflows/ci.yml/badge.svg)](https://github.com/google-gemini/gemini-cli/actions/workflows/ci.yml)
-[![Gemini CLI E2E (Chained)](https://github.com/google-gemini/gemini-cli/actions/workflows/chained_e2e.yml/badge.svg)](https://github.com/google-gemini/gemini-cli/actions/workflows/chained_e2e.yml)
-[![Version](https://img.shields.io/npm/v/@google/gemini-cli)](https://www.npmjs.com/package/@google/gemini-cli)
-[![License](https://img.shields.io/github/license/google-gemini/gemini-cli)](https://github.com/google-gemini/gemini-cli/blob/main/LICENSE)
-[![View Code Wiki](https://assets.codewiki.google/readme-badge/static.svg)](https://codewiki.google/github.com/google-gemini/gemini-cli?utm_source=badge&utm_medium=github&utm_campaign=github.com/google-gemini/gemini-cli)
-
-> [!NOTE]
->
-> Gemini CLI is not optimized for the latest Gemini models. For the best coding
-> experience with Gemini models use
-> [Antigravity CLI](https://antigravity.google/product/antigravity-cli)
-
-Gemini CLI is an open-source AI agent that brings the power of Gemini directly
-into your terminal. It provides lightweight access to Gemini, giving you the
-most direct path from your prompt to our model.
-
-Learn all about Gemini CLI in our [documentation](https://geminicli.com/docs/).
-
-## 📦 Installation
-
-See
-[Gemini CLI installation, execution, and releases](https://www.geminicli.com/docs/get-started/installation)
-for recommended system specifications and a detailed installation guide.
-
-### Quick Install
-
-#### Run instantly with npx
-
-```bash
-# Using npx (no installation required)
-npx @google/gemini-cli
+```
+ ██████   ██████  █████████              █████████     █████████   █████████     ██████████   █████████
+░░██████ ██████   ░███░░░███░           ███░░░░░███   ███░░░░░███  ░███░░████   ░░███░░░░░█░  ░███░░░███░
+ ░███░█████░███   ░███   ░███          ███     ░░░   ███     ░███  ░███  ░░███   ░███  █ ░    ░███   ░███
+ ░███░░███ ░███   ░█████████░         ░███          ░███     ░███  ░███   ░███   ░██████      ░█████████░
+ ░███ ░░░  ░███   ░███░░███           ░███          ░███     ░███  ░███   ░███   ░███░░█      ░███░░███
+ ░███      ░███   ░███  ░░███         ░░███  ░░███  ░░███    ░███  ░███  ░░███   ░███ ░       ░███  ░░███
+ █████     █████  █████   █████         ░░█████████   ░░█████████   █████████     ██████████   █████   █████
+░░░░░     ░░░░░   ░░░░░    ░░░          ░░░░░░░░░     ░░░░░░░░░    ░░░░░░░░░    ░░░░░░░░░░    ░░░░░    ░░░
 ```
 
-#### Install globally with npm
+Mr Coder is an open-source AI coding agent that lives in your terminal. Ask it
+questions about your codebase, generate and edit code, run commands, debug
+issues, and automate routine development work — all without leaving the shell.
+
+It ships with a dark, orange-accented look ported from
+[MiMo Code](https://github.com/XiaomiMiMo/MiMo-Code): near-black panels,
+`#FF6A00` primary orange, and flat theme colors that render exactly as
+specified.
+
+## What Mr Coder does
+
+- **Understands and edits large codebases** — query, navigate, and refactor with
+  full project context.
+- **Generates and fixes code** — new features, bug fixes, tests, and docs from
+  natural-language prompts.
+- **Runs your workflow** — shell commands, checkpointing, session resume, and
+  non-interactive modes for scripts (`-p`, `--output-format json`,
+  `--output-format stream-json`).
+- **Extends with MCP servers and extensions** — connect custom tools and add
+  your own slash commands.
+- **Remembers your project** — persistent instructions live in `MR-CODER.md`
+  context files (see below).
+
+## Installation (from source)
+
+Requires Node.js 20 or newer.
 
 ```bash
-npm install -g @google/gemini-cli
+git clone https://github.com/mattritchey/mrcoder.git
+cd mrcoder
+npm install
+npm run build
+cd packages/cli && npm link
 ```
 
-#### Install globally with Homebrew (macOS/Linux)
+Then run it from any project directory:
 
 ```bash
-brew install gemini-cli
+mr-coder
 ```
 
-#### Install globally with MacPorts (macOS)
+(The `gemini` command name is kept as an alias bin entry, so existing scripts
+that call `gemini` keep working.)
+
+## Authentication
+
+Mr Coder uses the same upstream auth methods and environment variables:
 
 ```bash
-sudo port install gemini-cli
-```
-
-#### Install with Anaconda (for restricted environments)
-
-```bash
-# Create and activate a new environment
-conda create -y -n gemini_env -c conda-forge nodejs
-conda activate gemini_env
-
-# Install Gemini CLI globally via npm (inside the environment)
-npm install -g @google/gemini-cli
-```
-
-## Release Channels
-
-See [Releases](https://www.geminicli.com/docs/changelogs) for more details.
-
-### Preview
-
-New preview releases will be published each week at UTC 23:59 on Tuesdays. These
-releases will not have been fully vetted and may contain regressions or other
-outstanding issues. Please help us test and install with `preview` tag.
-
-```bash
-npm install -g @google/gemini-cli@preview
-```
-
-### Stable
-
-- New stable releases will be published each week at UTC 20:00 on Tuesdays, this
-  will be the full promotion of last week's `preview` release + any bug fixes
-  and validations. Use `latest` tag.
-
-```bash
-npm install -g @google/gemini-cli@latest
-```
-
-### Nightly
-
-- New releases will be published each day at UTC 00:00. This will be all changes
-  from the main branch as represented at time of release. It should be assumed
-  there are pending validations and issues. Use `nightly` tag.
-
-```bash
-npm install -g @google/gemini-cli@nightly
-```
-
-## 📋 Key Features
-
-### Code Understanding & Generation
-
-- Query and edit large codebases
-- Generate new apps from PDFs, images, or sketches using multimodal capabilities
-- Debug issues and troubleshoot with natural language
-
-### Automation & Integration
-
-- Automate operational tasks like querying pull requests or handling complex
-  rebases
-- Use MCP servers to connect new capabilities, including
-  [media generation with Imagen, Veo or Lyria](https://github.com/GoogleCloudPlatform/vertex-ai-creative-studio/tree/main/experiments/mcp-genmedia)
-- Run non-interactively in scripts for workflow automation
-
-## 🔐 Authentication Options
-
-Choose the authentication method that best fits your needs:
-
-### Option 1: Sign in with Google (OAuth login using your Google Account)
-
-#### When using a paid Code Assist License from your organization, remember to set the Google Cloud Project
-
-```bash
-# Set your Google Cloud Project
-export GOOGLE_CLOUD_PROJECT="YOUR_PROJECT_ID"
-gemini
-```
-
-### Option 2: Gemini API Key
-
-**✨ Best for:** Developers who need specific model control or paid tier access
-
-**Benefits:**
-
-- **Model selection**: Choose specific Gemini models
-- **Usage-based billing**: Upgrade for higher limits when needed
-
-```bash
-# Get your key from https://aistudio.google.com/apikey
+# API key
 export GEMINI_API_KEY="YOUR_API_KEY"
-gemini
+mr-coder
+
+# Or sign in with Google on first run
+mr-coder
 ```
 
-### Option 3: Vertex AI
-
-**✨ Best for:** Enterprise teams and production workloads
-
-**Benefits:**
-
-- **Enterprise features**: Advanced security and compliance
-- **Scalable**: Higher rate limits with billing account
-- **Integration**: Works with existing Google Cloud infrastructure
+Any compatible endpoint can be used by pointing the client at it:
 
 ```bash
-# Get your key from Google Cloud Console
-export GOOGLE_API_KEY="YOUR_API_KEY"
-export GOOGLE_GENAI_USE_VERTEXAI=true
-gemini
+export GOOGLE_GEMINI_BASE_URL="http://127.0.0.1:4054"
 ```
 
-For Google Workspace accounts and other authentication methods, see the
-[authentication guide](https://www.geminicli.com/docs/get-started/authentication).
-
-## 🚀 Getting Started
-
-> [!NOTE]
->
-> Gemini CLI is not optimized for the latest Gemini models. For the best coding
-> experience with Gemini models use
-> [Antigravity CLI](https://antigravity.google/product/antigravity-cli)
-
-### Basic Usage
-
-#### Start in current directory
+## Quick start
 
 ```bash
-gemini
+# Interactive session in the current directory
+mr-coder
+
+# Pick a model
+mr-coder -m mimo-v2.6-flash-free
+
+# One-shot prompt (great for scripts)
+mr-coder -p "Explain the architecture of this codebase"
+
+# Structured output
+mr-coder -p "Run the tests and summarize failures" --output-format json
 ```
 
-#### Include multiple directories
+Useful slash commands inside a session: `/help`, `/theme`, `/init`,
+`/memory list`, `/memory reload`, `/auth`, `/mcp list`.
 
-```bash
-gemini --include-directories ../lib,../docs
+## Context files: MR-CODER.md
+
+Put persistent, project-specific instructions in a `MR-CODER.md` file and Mr
+Coder loads it automatically (from the current directory up to the repo root,
+plus a global one in your home config directory). Run `/init` in a session to
+have Mr Coder analyze the project and draft one for you.
+
+**Existing `GEMINI.md` files are still discovered** alongside `MR-CODER.md`, so
+projects you already set up keep working untouched.
+
+## The look
+
+The default **Mr Coder** theme is a direct port of MiMo Code's palette:
+
+| Role             | Value     |
+| ---------------- | --------- |
+| Background       | `#0a0a0a` |
+| Panel background | `#141414` |
+| Element / focus  | `#1e1e1e` |
+| Primary          | `#FF6A00` |
+| Secondary        | `#FF8A3C` |
+| Accent           | `#818CF8` |
+| Text             | `#eeeeee` |
+| Text muted       | `#808080` |
+| Border           | `#484848` |
+
+All upstream themes remain available via `/theme`.
+
+## Zen bridge wiring (local eval setup)
+
+In the author's local setup, Mr Coder runs against a local bridge on its own
+port, **:4054** (separate from Gemini CLI's :4036), via a small wrapper:
+
+```sh
+#!/bin/sh
+set -e
+export GOOGLE_GEMINI_BASE_URL="http://127.0.0.1:4054"
+export GEMINI_API_KEY="anything"
+export GEMINI_CLI_TRUST_WORKSPACE="true"
+exec mr-coder -m mimo-v2.6-flash-free "$@"
 ```
 
-#### Use specific model
+Note the base URL carries **no** `/v1` suffix — the client appends the API path
+itself.
 
-```bash
-gemini -m gemini-2.5-flash
-```
+## How Mr Coder differs from upstream
 
-#### Non-interactive mode for scripts
+See [MR-CODER.md](./MR-CODER.md) for the complete, exact list. In short: the
+name and binary, the branding and word-art, the MiMo-derived default theme, flat
+(unblended) theme colors, `MR-CODER.md` as the primary context filename, and
+nothing else — all features, tools, settings, MCP, extensions, and auth work as
+upstream. Functional identifiers (`GEMINI_*` env vars, the `~/.gemini` config
+directory, workspace package names) intentionally keep their upstream names:
+they are APIs, not branding.
 
-Get a simple text response:
+## Contributing
 
-```bash
-gemini -p "Explain the architecture of this codebase"
-```
+See [CONTRIBUTING.md](./CONTRIBUTING.md) for development setup and how to submit
+pull requests.
 
-For more advanced scripting, including how to parse JSON and handle errors, use
-the `--output-format json` flag to get structured output:
+## License
 
-```bash
-gemini -p "Explain the architecture of this codebase" --output-format json
-```
-
-For real-time event streaming (useful for monitoring long-running operations),
-use `--output-format stream-json` to get newline-delimited JSON events:
-
-```bash
-gemini -p "Run tests and deploy" --output-format stream-json
-```
-
-### Quick Examples
-
-#### Start a new project
-
-```bash
-cd new-project/
-gemini
-> Write me a Discord bot that answers questions using a FAQ.md file I will provide
-```
-
-#### Analyze existing code
-
-```bash
-git clone https://github.com/google-gemini/gemini-cli
-cd gemini-cli
-gemini
-> Give me a summary of all of the changes that went in yesterday
-```
-
-## 📚 Documentation
-
-### Getting Started
-
-- [**Quickstart Guide**](https://www.geminicli.com/docs/get-started) - Get up
-  and running quickly.
-- [**Authentication Setup**](https://www.geminicli.com/docs/get-started/authentication) -
-  Detailed auth configuration.
-- [**Configuration Guide**](https://www.geminicli.com/docs/reference/configuration) -
-  Settings and customization.
-- [**Keyboard Shortcuts**](https://www.geminicli.com/docs/reference/keyboard-shortcuts) -
-  Productivity tips.
-
-### Core Features
-
-- [**Commands Reference**](https://www.geminicli.com/docs/reference/commands) -
-  All slash commands (`/help`, `/chat`, etc).
-- [**Custom Commands**](https://www.geminicli.com/docs/cli/custom-commands) -
-  Create your own reusable commands.
-- [**Context Files (GEMINI.md)**](https://www.geminicli.com/docs/cli/gemini-md) -
-  Provide persistent context to Gemini CLI.
-- [**Checkpointing**](https://www.geminicli.com/docs/cli/checkpointing) - Save
-  and resume conversations.
-- [**Token Caching**](https://www.geminicli.com/docs/cli/token-caching) -
-  Optimize token usage.
-
-### Tools & Extensions
-
-- [**Built-in Tools Overview**](https://www.geminicli.com/docs/reference/tools)
-  - [File System Operations](https://www.geminicli.com/docs/tools/file-system)
-  - [Shell Commands](https://www.geminicli.com/docs/tools/shell)
-  - [Web Fetch & Search](https://www.geminicli.com/docs/tools/web-fetch)
-- [**MCP Server Integration**](https://www.geminicli.com/docs/tools/mcp-server) -
-  Extend with custom tools.
-- [**Custom Extensions**](https://geminicli.com/docs/extensions/writing-extensions) -
-  Build and share your own commands.
-
-### Advanced Topics
-
-- [**Headless Mode (Scripting)**](https://www.geminicli.com/docs/cli/headless) -
-  Use Gemini CLI in automated workflows.
-- [**IDE Integration**](https://www.geminicli.com/docs/ide-integration) - VS
-  Code companion.
-- [**Sandboxing & Security**](https://www.geminicli.com/docs/cli/sandbox) - Safe
-  execution environments.
-- [**Trusted Folders**](https://www.geminicli.com/docs/cli/trusted-folders) -
-  Control execution policies by folder.
-- [**Enterprise Guide**](https://www.geminicli.com/docs/cli/enterprise) - Deploy
-  and manage in a corporate environment.
-- [**Telemetry & Monitoring**](https://www.geminicli.com/docs/cli/telemetry) -
-  Usage tracking.
-- [**Tools reference**](https://www.geminicli.com/docs/reference/tools) -
-  Built-in tools overview.
-- [**Local development**](https://www.geminicli.com/docs/local-development) -
-  Local development tooling.
-
-### Troubleshooting & Support
-
-- [**Troubleshooting Guide**](https://www.geminicli.com/docs/resources/troubleshooting) -
-  Common issues and solutions.
-- [**FAQ**](https://www.geminicli.com/docs/resources/faq) - Frequently asked
-  questions.
-- Use `/bug` command to report issues directly from the CLI.
-
-### Using MCP Servers
-
-Configure MCP servers in `~/.gemini/settings.json` to extend Gemini CLI with
-custom tools:
-
-```text
-> @github List my open pull requests
-> @slack Send a summary of today's commits to #dev channel
-> @database Run a query to find inactive users
-```
-
-See the
-[MCP Server Integration guide](https://www.geminicli.com/docs/tools/mcp-server)
-for setup instructions.
-
-## 🤝 Contributing
-
-We welcome contributions! Gemini CLI is fully open source (Apache 2.0), and we
-encourage the community to:
-
-- Report bugs and suggest features.
-- Improve documentation.
-- Submit code improvements.
-- Share your MCP servers and extensions.
-
-See our [Contributing Guide](./CONTRIBUTING.md) for development setup, coding
-standards, and how to submit pull requests.
-
-Check our [Official Roadmap](https://github.com/orgs/google-gemini/projects/11)
-for planned features and priorities.
-
-## 📖 Resources
-
-- **[Free Course](https://learn.deeplearning.ai/courses/gemini-cli-code-and-create-with-an-open-source-agent/information)** -
-  Learn the basics.
-- **[Official Roadmap](./ROADMAP.md)** - See what's coming next.
-- **[Changelog](https://www.geminicli.com/docs/changelogs)** - See recent
-  notable updates.
-- **[NPM Package](https://www.npmjs.com/package/@google/gemini-cli)** - Package
-  registry.
-- **[GitHub Issues](https://github.com/google-gemini/gemini-cli/issues)** -
-  Report bugs or request features.
-- **[Security Advisories](https://github.com/google-gemini/gemini-cli/security/advisories)** -
-  Security updates.
-
-### Uninstall
-
-See the [Uninstall Guide](https://www.geminicli.com/docs/resources/uninstall)
-for removal instructions.
-
-## 📄 Legal
-
-- **License**: [Apache License 2.0](LICENSE)
-- **Terms of Service**:
-  [Terms & Privacy](https://www.geminicli.com/docs/resources/tos-privacy)
-- **Security**: [Security Policy](SECURITY.md)
-
-<p align="left">
- <a href="https://www.star-history.com/google-gemini/gemini-cli">
-  <picture>
-   <source media="(prefers-color-scheme: dark)" srcset="https://api.star-history.com/badge?repo=google-gemini/gemini-cli&theme=dark" />
-   <source media="(prefers-color-scheme: light)" srcset="https://api.star-history.com/badge?repo=google-gemini/gemini-cli" />
-   <img alt="Star History Rank" src="https://api.star-history.com/badge?repo=google-gemini/gemini-cli" />
-  </picture>
- </a>
-</p>
+Apache License 2.0 — see [LICENSE](LICENSE).
 
 ---
 
-<p align="center">
-  Built with ❤️ by Google and the open source community
-</p>
+Mr Coder is a fork of
+[google-gemini/gemini-cli](https://github.com/google-gemini/gemini-cli)
+(upstream commit `ed96fae`, v0.66.0-nightly). Thanks to the upstream authors and
+contributors.
