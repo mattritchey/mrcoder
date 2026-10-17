@@ -9,10 +9,9 @@ import {
   createCustomTheme,
   validateCustomTheme,
   pickDefaultThemeName,
-  darkTheme,
   type Theme,
 } from './theme.js';
-import { themeManager } from './theme-manager.js';
+import { themeManager, DEFAULT_THEME } from './theme-manager.js';
 import type { CustomTheme } from '@google/gemini-cli-core';
 
 describe('createCustomTheme', () => {
@@ -165,8 +164,10 @@ describe('themeManager.loadCustomThemes', () => {
     });
     const result = themeManager.getTheme('Legacy Custom Theme')!;
 
-    expect(result.colors.DiffAdded).toBe(darkTheme.DiffAdded);
-    expect(result.colors.DiffRemoved).toBe(darkTheme.DiffRemoved);
+    // mr-coder fork: DEFAULT_THEME is now the Mr Coder theme, whose diff
+    // backgrounds differ from upstream's static darkTheme constant.
+    expect(result.colors.DiffAdded).toBe(DEFAULT_THEME.colors.DiffAdded);
+    expect(result.colors.DiffRemoved).toBe(DEFAULT_THEME.colors.DiffRemoved);
     expect(result.colors.AccentBlue).toBe(legacyTheme.AccentBlue);
     expect(result.name).toBe(legacyTheme.name);
   });

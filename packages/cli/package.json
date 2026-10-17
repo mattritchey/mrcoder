@@ -1,7 +1,7 @@
 {
-  "name": "@google/gemini-cli",
+  "name": "mr-coder",
   "version": "0.66.0-nightly.20261013.g204db94ae",
-  "description": "Gemini CLI",
+  "description": "Mr Coder — a fork of Gemini CLI with a MiMo-Code-style background theme. All Gemini CLI features unchanged.",
   "license": "Apache-2.0",
   "repository": {
     "type": "git",
@@ -10,6 +10,7 @@
   "type": "module",
   "main": "dist/index.js",
   "bin": {
+    "mr-coder": "dist/index.js",
     "gemini": "dist/index.js"
   },
   "scripts": {
