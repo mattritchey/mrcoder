@@ -27,10 +27,11 @@ interface AppHeaderProps {
   showDetails?: boolean;
 }
 
-const DEFAULT_ICON = `▝▜▄  
-  ▝▜▄
- ▗▟▀ 
-▝▀    `;
+// mr-coder fork: pixel "M" monogram, replacing the Gemini spark icon.
+const DEFAULT_ICON = `█   █
+█▚ ▞█
+█ ▀ █
+█   █`;
 
 /**
  * The default Apple Terminal.app adds significant line-height padding between
@@ -39,10 +40,10 @@ const DEFAULT_ICON = `▝▜▄
  * which makes the padding gaps look like an intentional "scanline" design
  * rather than a broken image.
  */
-const MAC_TERMINAL_ICON = `▝▜▄  
-  ▝▜▄
-  ▗▟▀
-▗▟▀  `;
+const MAC_TERMINAL_ICON = `█   █
+█▚ ▞█
+█ ▀ █
+█   █`;
 
 /**
  * The horizontal padding (in columns) required for metadata (version, identity, etc.)
@@ -109,10 +110,10 @@ export const AppHeader = ({ version, showDetails = true }: AppHeaderProps) => {
 
   const renderMetadata = (isBelow = false) => (
     <Box marginLeft={isBelow ? 0 : 2} flexDirection="column">
-      {/* Line 1: Gemini CLI vVersion [Updating] */}
+      {/* Line 1: Mr Coder vVersion [Updating] */}
       <Box>
         <Text bold color={theme.text.primary}>
-          Gemini CLI
+          Mr Coder
         </Text>
         <Text color={theme.text.secondary}> v{version}</Text>
         {updateInfo?.isUpdating && (
