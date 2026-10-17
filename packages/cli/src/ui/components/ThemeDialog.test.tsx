@@ -169,7 +169,7 @@ describe('Initial Theme Selection', () => {
       },
     );
 
-    // We expect 'DefaultDark' to be highlighted.
+    // We expect 'Mr Coder' (the mr-coder fork's default dark theme) to be highlighted.
     expect(lastFrame()).toMatchSnapshot();
     unmount();
   });
