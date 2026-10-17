@@ -245,12 +245,12 @@ export async function readGeminiMdFiles(
             (error as NodeJS.ErrnoException).code === 'EISDIR';
 
           if (isEISDIR) {
-            // A directory exists where a GEMINI.md file is expected.
+            // A directory exists where a MR-CODER.md file is expected.
             // This is valid in some project structures (e.g. a folder named
-            // GEMINI.md held for organisational purposes) — skip it silently
+            // MR-CODER.md held for organisational purposes) — skip it silently
             // instead of surfacing a confusing warning to the user.
             debugLogger.debug(
-              '[DEBUG] [MemoryDiscovery] Skipping directory at GEMINI.md path:',
+              '[DEBUG] [MemoryDiscovery] Skipping directory at MR-CODER.md path:',
               filePath,
             );
           } else {
@@ -354,7 +354,7 @@ export async function getUserProjectMemoryPaths(
     );
     return [preferredMemoryPath];
   } catch {
-    // Fall back to the legacy private GEMINI.md file if the project has not
+    // Fall back to the legacy private MR-CODER.md file if the project has not
     // been migrated to MEMORY.md yet.
   }
 
@@ -455,7 +455,7 @@ export function categorizeAndConcatenate(
 }
 
 /**
- * Traverses upward from startDir to stopDir, finding all GEMINI.md variants.
+ * Traverses upward from startDir to stopDir, finding all MR-CODER.md variants.
  *
  * Files are ordered by directory level (root to leaf), with all filename
  * variants grouped together per directory.
@@ -555,7 +555,7 @@ export async function loadJitSubdirectoryMemory(
   // Resolve the target to a directory before traversing upward.
   // When the target is a file (e.g. /app/src/file.ts), start from its
   // parent directory to avoid a wasted fs.access check on a nonsensical
-  // path like /app/src/file.ts/GEMINI.md.
+  // path like /app/src/file.ts/MR-CODER.md.
   let startDir = resolvedTarget;
   try {
     const stat = await fs.stat(resolvedTarget);

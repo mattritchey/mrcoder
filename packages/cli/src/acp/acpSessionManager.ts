@@ -100,7 +100,7 @@ export class AcpSessionManager {
         (!contentGeneratorConfig || !contentGeneratorConfig.apiKey)
       ) {
         isAuthenticated = false;
-        authErrorMessage = 'Gemini API key is missing or not configured.';
+        authErrorMessage = 'Mr Coder API key is missing or not configured.';
       }
     } catch (e) {
       isAuthenticated = false;

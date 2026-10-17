@@ -427,7 +427,7 @@ export async function start_sandbox(
     if (process.env['BUILD_SANDBOX']) {
       if (!gcPath.includes('gemini-cli/packages/')) {
         throw new FatalSandboxError(
-          'Cannot build sandbox using installed gemini binary; ' +
+          'Cannot build sandbox using installed mr-coder binary; ' +
             'run `npm link ./packages/cli` under gemini-cli repo to switch to linked binary.',
         );
       } else {

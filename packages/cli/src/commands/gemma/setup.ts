@@ -389,7 +389,7 @@ async function handleSetup(argv: SetupArgs): Promise<number> {
     } else {
       log(
         chalk.yellow(
-          `  ! Server may not have started correctly. Check: gemini gemma status`,
+          `  ! Server may not have started correctly. Check: mr-coder gemma status`,
         ),
       );
     }
@@ -429,12 +429,14 @@ async function handleSetup(argv: SetupArgs): Promise<number> {
   if (!settingsUpdated) {
     log(
       chalk.yellow(
-        '  Fix the settings update above, then rerun "gemini gemma status".',
+        '  Fix the settings update above, then rerun "mr-coder gemma status".',
       ),
     );
     log('');
   } else if (!argv.start) {
-    log(chalk.yellow('  Note: Run "gemini gemma start" to start the server.'));
+    log(
+      chalk.yellow('  Note: Run "mr-coder gemma start" to start the server.'),
+    );
     if (autoStartServer) {
       log(
         chalk.yellow(
@@ -446,15 +448,15 @@ async function handleSetup(argv: SetupArgs): Promise<number> {
   } else if (!serverStarted) {
     log(
       chalk.yellow(
-        '  Review the server logs and rerun "gemini gemma start" after fixing the issue.',
+        '  Review the server logs and rerun "mr-coder gemma start" after fixing the issue.',
       ),
     );
     log('');
   }
   log('  Useful commands:');
-  log(chalk.dim('    gemini gemma status   Check routing status'));
-  log(chalk.dim('    gemini gemma start    Start the LiteRT server'));
-  log(chalk.dim('    gemini gemma stop     Stop the LiteRT server'));
+  log(chalk.dim('    mr-coder gemma status   Check routing status'));
+  log(chalk.dim('    mr-coder gemma start    Start the LiteRT server'));
+  log(chalk.dim('    mr-coder gemma stop     Stop the LiteRT server'));
   log(chalk.dim('    /gemma               Check status inside a session'));
   log('');
 

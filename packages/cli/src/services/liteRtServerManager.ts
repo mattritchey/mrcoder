@@ -19,7 +19,7 @@ export class LiteRtServerManager {
     const binaryPath = getBinaryPath();
     if (!binaryPath || !fs.existsSync(binaryPath)) {
       debugLogger.log(
-        '[LiteRtServerManager] Binary not installed, skipping auto-start. Run "gemini gemma setup".',
+        '[LiteRtServerManager] Binary not installed, skipping auto-start. Run "mr-coder gemma setup".',
       );
       return;
     }

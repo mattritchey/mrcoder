@@ -52,7 +52,13 @@ export async function setupTerminalAndTheme(
   }
 
   config.setTerminalBackground(terminalBackground);
-  themeManager.setTerminalBackground(terminalBackground);
+  // mr-coder fork: do NOT hand the detected terminal background to the
+  // theme manager. Upstream blends panel/message/border colors toward
+  // the terminal background, which washes out the active theme; MiMo
+  // Code (the fork's look target) renders its theme colors flat, so the
+  // fork does the same. Detection above still drives the compatibility
+  // warning below.
+  themeManager.setTerminalBackground(undefined);
 
   if (
     terminalBackground !== undefined &&

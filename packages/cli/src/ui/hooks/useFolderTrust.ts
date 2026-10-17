@@ -71,7 +71,7 @@ export const useFolderTrust = (
         addItemRef.current(
           {
             type: MessageType.INFO,
-            text: 'This folder is untrusted, project settings, hooks, MCPs, and GEMINI.md files will not be applied for this folder.\nUse the `/permissions` command to change the trust level.',
+            text: 'This folder is untrusted, project settings, hooks, MCPs, and MR-CODER.md files will not be applied for this folder.\nUse the `/permissions` command to change the trust level.',
           },
           Date.now(),
         );
@@ -110,7 +110,7 @@ export const useFolderTrust = (
       } catch {
         coreEvents.emitFeedback(
           'error',
-          'Failed to save trust settings. Exiting Gemini CLI.',
+          'Failed to save trust settings. Exiting Mr Coder.',
         );
         setTimeout(async () => {
           await runExitCleanup();

@@ -45,9 +45,9 @@ function sanitizeNotificationContent(
   const body = sanitizeForDisplay(content.body, MAX_NOTIFICATION_BODY_CHARS);
 
   return {
-    title: title || 'Gemini CLI',
+    title: title || 'Mr Coder',
     subtitle: subtitle || undefined,
-    body: body || 'Open Gemini CLI for details.',
+    body: body || 'Open Mr Coder for details.',
   };
 }
 
@@ -56,14 +56,14 @@ export function buildRunEventNotificationContent(
 ): RunEventNotificationContent {
   if (event.type === 'attention') {
     return sanitizeNotificationContent({
-      title: 'Gemini CLI needs your attention',
+      title: 'Mr Coder needs your attention',
       subtitle: event.heading ?? 'Action required',
-      body: event.detail ?? 'Open Gemini CLI to continue.',
+      body: event.detail ?? 'Open Mr Coder to continue.',
     });
   }
 
   return sanitizeNotificationContent({
-    title: 'Gemini CLI session complete',
+    title: 'Mr Coder session complete',
     subtitle: 'Run finished',
     body: event.detail ?? 'The session finished successfully.',
   });

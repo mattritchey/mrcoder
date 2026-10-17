@@ -144,7 +144,7 @@ export const logsCommand: CommandModule<object, LogsArgs> = {
     } catch {
       debugLogger.log(`No log file found at ${logPath}`);
       debugLogger.log(
-        'Is the LiteRT server running? Start it with: gemini gemma start',
+        'Is the LiteRT server running? Start it with: mr-coder gemma start',
       );
       await exitCli(1);
       return;

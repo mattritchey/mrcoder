@@ -573,7 +573,7 @@ const SETTINGS_SCHEMA = {
         requiresRestart: false,
         default: false,
         description:
-          'Show Gemini CLI model thoughts in the terminal window title during the working phase',
+          'Show Mr Coder model thoughts in the terminal window title during the working phase',
         showInDialog: true,
       },
       dynamicWindowTitle: {
@@ -593,7 +593,7 @@ const SETTINGS_SCHEMA = {
         requiresRestart: true,
         default: true,
         description:
-          'Show a warning when running Gemini CLI in the home directory.',
+          'Show a warning when running Mr Coder in the home directory.',
         showInDialog: true,
       },
       showCompatibilityWarnings: {
@@ -659,7 +659,7 @@ const SETTINGS_SCHEMA = {
         requiresRestart: false,
         default: false,
         description:
-          'Hide the context summary (GEMINI.md, MCP servers) above the input.',
+          'Hide the context summary (MR-CODER.md, MCP servers) above the input.',
         showInDialog: true,
       },
       footer: {
@@ -1074,7 +1074,7 @@ const SETTINGS_SCHEMA = {
         category: 'Model',
         requiresRestart: false,
         default: undefined as string | undefined,
-        description: 'The Gemini model to use for conversations.',
+        description: 'The model to use for conversations.',
         showInDialog: true,
       },
       maxSessionTurns: {
@@ -1438,7 +1438,7 @@ const SETTINGS_SCHEMA = {
         requiresRestart: true,
         default: ['.git'] as string[],
         description:
-          'File or directory names that mark the boundary for GEMINI.md discovery. ' +
+          'File or directory names that mark the boundary for MR-CODER.md discovery. ' +
           'The upward traversal stops at the first directory containing any of these markers. ' +
           'An empty array disables parent traversal.',
         showInDialog: false,
@@ -1465,7 +1465,7 @@ const SETTINGS_SCHEMA = {
         requiresRestart: false,
         default: false,
         description: oneLine`
-          Controls how /memory reload loads GEMINI.md files.
+          Controls how /memory reload loads MR-CODER.md files.
           When true, include directories are scanned; when false, only the current directory is used.
         `,
         showInDialog: true,
@@ -2373,7 +2373,7 @@ const SETTINGS_SCHEMA = {
             requiresRestart: true,
             default: false,
             description:
-              'Automatically start the LiteRT-LM server when Gemini CLI starts and the Gemma router is enabled.',
+              'Automatically start the LiteRT-LM server when Mr Coder starts and the Gemma router is enabled.',
             showInDialog: true,
           },
           binaryPath: {
@@ -3111,7 +3111,7 @@ export const SETTINGS_SCHEMA_DEFINITIONS: Record<
       extension: {
         type: 'object',
         description:
-          'Metadata describing the Gemini CLI extension that owns this MCP server.',
+          'Metadata describing the Mr Coder extension that owns this MCP server.',
         additionalProperties: { type: ['string', 'boolean', 'number'] },
       },
       oauth: {
@@ -3218,7 +3218,7 @@ export const SETTINGS_SCHEMA_DEFINITIONS: Record<
   },
   TelemetrySettings: {
     type: 'object',
-    description: 'Telemetry configuration for Gemini CLI.',
+    description: 'Telemetry configuration for Mr Coder.',
     additionalProperties: false,
     properties: {
       enabled: {
@@ -3327,7 +3327,7 @@ export const SETTINGS_SCHEMA_DEFINITIONS: Record<
   CustomTheme: {
     type: 'object',
     description:
-      'Custom theme definition used for styling Gemini CLI output. Colors are provided as hex strings or named ANSI colors.',
+      'Custom theme definition used for styling Mr Coder output. Colors are provided as hex strings or named ANSI colors.',
     additionalProperties: false,
     properties: {
       type: {

@@ -1035,7 +1035,7 @@ export const AppContainer = (props: AppContainerProps) => {
         ) {
           writeToStdout(`
 ----------------------------------------------------------------
-Logging in with Google... Restarting Gemini CLI to continue.
+Logging in with Google... Restarting Mr Coder to continue.
 ----------------------------------------------------------------
           `);
           await relaunchApp();
@@ -1288,7 +1288,7 @@ Logging in with Google... Restarting Gemini CLI to continue.
     historyManager.addItem(
       {
         type: MessageType.INFO,
-        text: 'Refreshing hierarchical memory (GEMINI.md or other context files)...',
+        text: 'Refreshing hierarchical memory (MR-CODER.md or other context files)...',
       },
       Date.now(),
     );
@@ -2438,7 +2438,7 @@ Logging in with Google... Restarting Gemini CLI to continue.
       lastTitleRef.current = paddedTitle;
       stdout.write(`\x1b]0;${paddedTitle}\x07`);
     }
-    // Note: We don't need to reset the window title on exit because Gemini CLI is already doing that elsewhere
+    // Note: We don't need to reset the window title on exit because Mr Coder is already doing that elsewhere
   }, [
     streamingState,
     thought,

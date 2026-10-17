@@ -89,7 +89,7 @@ export const startCommand: CommandModule = {
     if (!binaryPath || !isBinaryInstalled(binaryPath)) {
       debugLogger.error(
         chalk.red(
-          'LiteRT-LM binary not found. Run "gemini gemma setup" first.',
+          'LiteRT-LM binary not found. Run "mr-coder gemma setup" first.',
         ),
       );
       await exitCli(1);

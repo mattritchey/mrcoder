@@ -298,7 +298,7 @@ describe('Core System Prompt (prompts.ts)', () => {
   it('should use chatty system prompt for preview model', () => {
     vi.mocked(mockConfig.getActiveModel).mockReturnValue(PREVIEW_GEMINI_MODEL);
     const prompt = getCoreSystemPrompt(mockConfig);
-    expect(prompt).toContain('You are Gemini CLI, an interactive CLI agent'); // Check for core content
+    expect(prompt).toContain('You are Mr Coder, an interactive CLI agent'); // Check for core content
     expect(prompt).toContain('- **User Hints:**');
     expect(prompt).toContain('No Chitchat:');
     expect(prompt).toMatchSnapshot();
@@ -309,7 +309,7 @@ describe('Core System Prompt (prompts.ts)', () => {
       PREVIEW_GEMINI_FLASH_MODEL,
     );
     const prompt = getCoreSystemPrompt(mockConfig);
-    expect(prompt).toContain('You are Gemini CLI, an interactive CLI agent'); // Check for core content
+    expect(prompt).toContain('You are Mr Coder, an interactive CLI agent'); // Check for core content
     expect(prompt).toContain('No Chitchat:');
     expect(prompt).toMatchSnapshot();
   });
@@ -334,7 +334,7 @@ describe('Core System Prompt (prompts.ts)', () => {
     vi.mocked(mockConfig.getActiveModel).mockReturnValue(PREVIEW_GEMINI_MODEL);
     const prompt = getCoreSystemPrompt(mockConfig, userMemory);
     expect(prompt).not.toContain('---\n\n'); // Separator should not be present
-    expect(prompt).toContain('You are Gemini CLI, an interactive CLI agent'); // Check for core content
+    expect(prompt).toContain('You are Mr Coder, an interactive CLI agent'); // Check for core content
     expect(prompt).toContain('No Chitchat:');
     expect(prompt).toMatchSnapshot(); // Use snapshot for base prompt structure
   });
@@ -345,10 +345,10 @@ describe('Core System Prompt (prompts.ts)', () => {
     const memory = 'This is custom user memory.\nBe extra polite.';
     const prompt = getCoreSystemPrompt(mockConfig, memory);
 
-    expect(prompt).toContain('# Contextual Instructions (GEMINI.md)');
+    expect(prompt).toContain('# Contextual Instructions (MR-CODER.md)');
     expect(prompt).toContain('<loaded_context>');
     expect(prompt).toContain(memory);
-    expect(prompt).toContain('You are Gemini CLI, an interactive CLI agent'); // Ensure base prompt follows
+    expect(prompt).toContain('You are Mr Coder, an interactive CLI agent'); // Ensure base prompt follows
     expect(prompt).toMatchSnapshot(); // Snapshot the combined prompt
   });
 
@@ -387,7 +387,7 @@ describe('Core System Prompt (prompts.ts)', () => {
     ['sandbox-exec', '# macOS Seatbelt', ['# Sandbox', '# Outside of Sandbox']],
     [
       undefined,
-      'You are Gemini CLI, an interactive CLI agent',
+      'You are Mr Coder, an interactive CLI agent',
       ['# Sandbox', '# macOS Seatbelt'],
     ],
   ])(

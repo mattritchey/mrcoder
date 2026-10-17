@@ -27,7 +27,7 @@ export const GeminiPrivacyNotice = ({ onExit }: GeminiPrivacyNoticeProps) => {
   return (
     <Box flexDirection="column" marginBottom={1}>
       <Text bold color={theme.text.accent}>
-        Gemini API Key Notice
+        Mr Coder API Key Notice
       </Text>
       <Newline />
       <Text color={theme.text.primary}>

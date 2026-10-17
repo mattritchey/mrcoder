@@ -75,7 +75,7 @@ export function formatGemmaStatus(status: GemmaStatusResult): string {
     const platform = detectPlatform();
     if (platform) {
       lines.push(`  Binary:    ${check(false)} Not installed`);
-      lines.push(chalk.dim(`             Run: gemini gemma setup`));
+      lines.push(chalk.dim(`             Run: mr-coder gemma setup`));
     } else {
       lines.push(
         `  Binary:    ${check(false)} Unsupported platform (${process.platform}-${process.arch})`,
@@ -94,7 +94,7 @@ export function formatGemmaStatus(status: GemmaStatusResult): string {
         ),
       );
     } else {
-      lines.push(chalk.dim(`             Run: gemini gemma setup`));
+      lines.push(chalk.dim(`             Run: mr-coder gemma setup`));
     }
   }
 
@@ -107,7 +107,7 @@ export function formatGemmaStatus(status: GemmaStatusResult): string {
     lines.push(
       `  Server:    ${check(false)} Not running on port ${status.port}`,
     );
-    lines.push(chalk.dim(`             Run: gemini gemma start`));
+    lines.push(chalk.dim(`             Run: mr-coder gemma start`));
   }
 
   if (status.settingsEnabled) {
@@ -116,7 +116,7 @@ export function formatGemmaStatus(status: GemmaStatusResult): string {
     lines.push(`  Settings:  ${check(false)} Not enabled in settings.json`);
     lines.push(
       chalk.dim(
-        `             Run: gemini gemma setup (auto-configures settings)`,
+        `             Run: mr-coder gemma setup (auto-configures settings)`,
       ),
     );
   }
@@ -135,7 +135,7 @@ export function formatGemmaStatus(status: GemmaStatusResult): string {
   } else {
     lines.push(
       chalk.yellow(
-        '  Some checks failed. Run "gemini gemma setup" for guided installation.',
+        '  Some checks failed. Run "mr-coder gemma setup" for guided installation.',
       ),
     );
   }

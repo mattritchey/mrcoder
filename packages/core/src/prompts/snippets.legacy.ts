@@ -389,7 +389,7 @@ export function renderUserMemory(memory?: string | HierarchicalMemory): string {
     const trimmed = memory.trim();
     if (trimmed.length === 0) return '';
     return `
-# Contextual Instructions (GEMINI.md)
+# Contextual Instructions (MR-CODER.md)
 The following content is loaded from local and global configuration files.
 **Context Precedence:**
 - **Global (~/.gemini/):** foundational user preferences. Apply these broadly.
@@ -708,10 +708,10 @@ function toolUsageRememberingFacts(
   - **Private Project Memory** (\`${options.userProjectMemoryPath}\`): Personal-to-the-user, project-specific notes that must **NOT** be committed to the repo. Keep this file concise: it is the private index for this workspace. Store richer detail in sibling \`*.md\` files in the same folder and use \`MEMORY.md\` to point to them.`
     : '';
   return `
-- **Instruction and Memory Files:** You persist long-lived project context by editing markdown files directly with '${EDIT_TOOL_NAME}' or '${WRITE_FILE_TOOL_NAME}'. There is no \`save_memory\` tool. The current contents of all loaded \`GEMINI.md\` files and the private project \`MEMORY.md\` index are already in your context — do not re-read them before editing.
-  - **Project Instructions** (\`./GEMINI.md\`): Team-shared architecture, conventions, workflows, and other repo guidance. **Committed to the repo and shared with the team.**
-  - **Subdirectory Instructions** (e.g. \`./src/GEMINI.md\`): Scoped instructions for one part of the project. Reference them from \`./GEMINI.md\` so they remain discoverable.${userProjectBullet}
-  Whenever the user tells you to "remember" something or states a durable personal workflow for this codebase, save it in the private project memory folder immediately. Put concise index entries in \`MEMORY.md\`; if more detail is useful, create or update a sibling \`*.md\` note in the same folder and keep \`MEMORY.md\` as the pointer. Only update \`GEMINI.md\` files when the memory is a shared project instruction or convention that belongs in the repo. If it could be either tier, ask the user. Never save transient session state, summaries of code changes, bug fixes, or task-specific findings — these files are loaded into every session and must stay lean.`;
+- **Instruction and Memory Files:** You persist long-lived project context by editing markdown files directly with '${EDIT_TOOL_NAME}' or '${WRITE_FILE_TOOL_NAME}'. There is no \`save_memory\` tool. The current contents of all loaded \`MR-CODER.md\` files and the private project \`MEMORY.md\` index are already in your context — do not re-read them before editing.
+  - **Project Instructions** (\`./MR-CODER.md\`): Team-shared architecture, conventions, workflows, and other repo guidance. **Committed to the repo and shared with the team.**
+  - **Subdirectory Instructions** (e.g. \`./src/MR-CODER.md\`): Scoped instructions for one part of the project. Reference them from \`./MR-CODER.md\` so they remain discoverable.${userProjectBullet}
+  Whenever the user tells you to "remember" something or states a durable personal workflow for this codebase, save it in the private project memory folder immediately. Put concise index entries in \`MEMORY.md\`; if more detail is useful, create or update a sibling \`*.md\` note in the same folder and keep \`MEMORY.md\` as the pointer. Only update \`MR-CODER.md\` files when the memory is a shared project instruction or convention that belongs in the repo. If it could be either tier, ask the user. Never save transient session state, summaries of code changes, bug fixes, or task-specific findings — these files are loaded into every session and must stay lean.`;
 }
 
 function gitRepoKeepUserInformed(interactive: boolean): string {

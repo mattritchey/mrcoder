@@ -18,7 +18,7 @@ export interface WorktreeInfo {
 }
 
 /**
- * Service for managing Git worktrees within Gemini CLI.
+ * Service for managing Git worktrees within Mr Coder.
  * Handles creation, cleanup, and environment setup for isolated sessions.
  */
 export class WorktreeService {

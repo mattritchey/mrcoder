@@ -617,7 +617,7 @@ describe('memoryService', () => {
             path.join(inboxDir, 'global', 'reply-style.patch'),
             [
               `--- /dev/null`,
-              `+++ ${path.join(globalMemoryDir, 'GEMINI.md')}`,
+              `+++ ${path.join(globalMemoryDir, 'MR-CODER.md')}`,
               `@@ -0,0 +1,1 @@`,
               `+Prefer concise architecture summaries.`,
               ``,
