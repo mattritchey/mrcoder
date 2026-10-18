@@ -2,10 +2,10 @@
 
 exports[`AppHeader Icon Rendering > renders the default icon in standard terminals 1`] = `
 "
- █   █   ▙▗▌ ▜▀▖     ▞▀▘ ▞▀▖ ▜▀▖ ▜▀▘ ▜▀▖
- █▚ ▞█   ▌▌▌ ▙▄▘     ▌   ▌ ▌ ▌ ▌ ▙▄  ▙▄▘
- █ ▀ █   ▌ ▌ ▌▚      ▌   ▌ ▌ ▌ ▌ ▌   ▌▚
- █   █   ▘ ▘ ▘ ▘     ▝▀▘ ▝▀  ▀▀  ▀▀▘ ▘ ▘
+ MR      ▙▗▌ ▜▀▖     ▞▀▘ ▞▀▖ ▜▀▖ ▜▀▘ ▜▀▖
+ CODER   ▌▌▌ ▙▄▘     ▌   ▌ ▌ ▌ ▌ ▙▄  ▙▄▘
+         ▌ ▌ ▌▚      ▌   ▌ ▌ ▌ ▌ ▌   ▌▚
+         ▘ ▘ ▘ ▘     ▝▀▘ ▝▀  ▀▀  ▀▀▘ ▘ ▘
 
  Mr Coder v1.0.0
 
@@ -20,10 +20,10 @@ Tips for getting started:
 
 exports[`AppHeader Icon Rendering > renders the symmetric icon in Apple Terminal 1`] = `
 "
- █   █   ▙▗▌ ▜▀▖     ▞▀▘ ▞▀▖ ▜▀▖ ▜▀▘ ▜▀▖
- █▚ ▞█   ▌▌▌ ▙▄▘     ▌   ▌ ▌ ▌ ▌ ▙▄  ▙▄▘
- █ ▀ █   ▌ ▌ ▌▚      ▌   ▌ ▌ ▌ ▌ ▌   ▌▚
- █   █   ▘ ▘ ▘ ▘     ▝▀▘ ▝▀  ▀▀  ▀▀▘ ▘ ▘
+ MR      ▙▗▌ ▜▀▖     ▞▀▘ ▞▀▖ ▜▀▖ ▜▀▘ ▜▀▖
+ CODER   ▌▌▌ ▙▄▘     ▌   ▌ ▌ ▌ ▌ ▙▄  ▙▄▘
+         ▌ ▌ ▌▚      ▌   ▌ ▌ ▌ ▌ ▌   ▌▚
+         ▘ ▘ ▘ ▘     ▝▀▘ ▝▀  ▀▀  ▀▀▘ ▘ ▘
 
  Mr Coder v1.0.0
 

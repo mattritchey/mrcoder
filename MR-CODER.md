@@ -45,8 +45,11 @@ A fork of
    DEFAULT_THEME unless a theme was picked via /theme or settings.
 
 3. **Header branding:** the interactive header title reads "Mr Coder" and the
-   Gemini spark icon is replaced with a pixel "M" monogram
-   (`packages/cli/src/ui/components/AppHeader.tsx`). All GEMINI word-art in
+   Gemini spark icon is replaced with an "MR CODER" wordmark (stacked MR /
+   CODER) rendered in a light-to-medium blue gradient (#7DD3FC → #60A5FA →
+   #3B82F6, independent of the theme's orange gradient)
+   (`packages/cli/src/ui/components/AppHeader.tsx`; originally a pixel "M"
+   monogram, replaced at the owner's request in round 6). All GEMINI word-art in
    AsciiArt.ts (short/long/tiny + compact variants) is redrawn to read "MR
    CODER" — the M and E block glyphs are upstream's own, C/O/D/R were drawn in
    the same stroke idiom.

@@ -2,10 +2,10 @@
 
 exports[`<AppHeader /> > should not render the banner when no flags are set 1`] = `
 "
- █   █   ▙▗▌ ▜▀▖     ▞▀▘ ▞▀▖ ▜▀▖ ▜▀▘ ▜▀▖
- █▚ ▞█   ▌▌▌ ▙▄▘     ▌   ▌ ▌ ▌ ▌ ▙▄  ▙▄▘
- █ ▀ █   ▌ ▌ ▌▚      ▌   ▌ ▌ ▌ ▌ ▌   ▌▚
- █   █   ▘ ▘ ▘ ▘     ▝▀▘ ▝▀  ▀▀  ▀▀▘ ▘ ▘
+ MR      ▙▗▌ ▜▀▖     ▞▀▘ ▞▀▖ ▜▀▖ ▜▀▘ ▜▀▖
+ CODER   ▌▌▌ ▙▄▘     ▌   ▌ ▌ ▌ ▌ ▙▄  ▙▄▘
+         ▌ ▌ ▌▚      ▌   ▌ ▌ ▌ ▌ ▌   ▌▚
+         ▘ ▘ ▘ ▘     ▝▀▘ ▝▀  ▀▀  ▀▀▘ ▘ ▘
 
  Mr Coder v1.0.0
 
@@ -21,10 +21,10 @@ Tips for getting started:
 
 exports[`<AppHeader /> > should not render the default banner if shown count is 5 or more 1`] = `
 "
- █   █   ▙▗▌ ▜▀▖     ▞▀▘ ▞▀▖ ▜▀▖ ▜▀▘ ▜▀▖
- █▚ ▞█   ▌▌▌ ▙▄▘     ▌   ▌ ▌ ▌ ▌ ▙▄  ▙▄▘
- █ ▀ █   ▌ ▌ ▌▚      ▌   ▌ ▌ ▌ ▌ ▌   ▌▚
- █   █   ▘ ▘ ▘ ▘     ▝▀▘ ▝▀  ▀▀  ▀▀▘ ▘ ▘
+ MR      ▙▗▌ ▜▀▖     ▞▀▘ ▞▀▖ ▜▀▖ ▜▀▘ ▜▀▖
+ CODER   ▌▌▌ ▙▄▘     ▌   ▌ ▌ ▌ ▌ ▙▄  ▙▄▘
+         ▌ ▌ ▌▚      ▌   ▌ ▌ ▌ ▌ ▌   ▌▚
+         ▘ ▘ ▘ ▘     ▝▀▘ ▝▀  ▀▀  ▀▀▘ ▘ ▘
 
  Mr Coder v1.0.0
 
@@ -40,10 +40,10 @@ Tips for getting started:
 
 exports[`<AppHeader /> > should render the banner with default text 1`] = `
 "
- █   █   ▙▗▌ ▜▀▖     ▞▀▘ ▞▀▖ ▜▀▖ ▜▀▘ ▜▀▖
- █▚ ▞█   ▌▌▌ ▙▄▘     ▌   ▌ ▌ ▌ ▌ ▙▄  ▙▄▘
- █ ▀ █   ▌ ▌ ▌▚      ▌   ▌ ▌ ▌ ▌ ▌   ▌▚
- █   █   ▘ ▘ ▘ ▘     ▝▀▘ ▝▀  ▀▀  ▀▀▘ ▘ ▘
+ MR      ▙▗▌ ▜▀▖     ▞▀▘ ▞▀▖ ▜▀▖ ▜▀▘ ▜▀▖
+ CODER   ▌▌▌ ▙▄▘     ▌   ▌ ▌ ▌ ▌ ▙▄  ▙▄▘
+         ▌ ▌ ▌▚      ▌   ▌ ▌ ▌ ▌ ▌   ▌▚
+         ▘ ▘ ▘ ▘     ▝▀▘ ▝▀  ▀▀  ▀▀▘ ▘ ▘
 
  Mr Coder v1.0.0
 
@@ -62,10 +62,10 @@ Tips for getting started:
 
 exports[`<AppHeader /> > should render the banner with warning text 1`] = `
 "
- █   █   ▙▗▌ ▜▀▖     ▞▀▘ ▞▀▖ ▜▀▖ ▜▀▘ ▜▀▖
- █▚ ▞█   ▌▌▌ ▙▄▘     ▌   ▌ ▌ ▌ ▌ ▙▄  ▙▄▘
- █ ▀ █   ▌ ▌ ▌▚      ▌   ▌ ▌ ▌ ▌ ▌   ▌▚
- █   █   ▘ ▘ ▘ ▘     ▝▀▘ ▝▀  ▀▀  ▀▀▘ ▘ ▘
+ MR      ▙▗▌ ▜▀▖     ▞▀▘ ▞▀▖ ▜▀▖ ▜▀▘ ▜▀▖
+ CODER   ▌▌▌ ▙▄▘     ▌   ▌ ▌ ▌ ▌ ▙▄  ▙▄▘
+         ▌ ▌ ▌▚      ▌   ▌ ▌ ▌ ▌ ▌   ▌▚
+         ▘ ▘ ▘ ▘     ▝▀▘ ▝▀  ▀▀  ▀▀▘ ▘ ▘
 
  Mr Coder v1.0.0
 
@@ -84,10 +84,10 @@ Tips for getting started:
 
 exports[`<AppHeader /> > should render the full logo when logged out 1`] = `
 "
- █   █   ▙▗▌ ▜▀▖     ▞▀▘ ▞▀▖ ▜▀▖ ▜▀▘ ▜▀▖
- █▚ ▞█   ▌▌▌ ▙▄▘     ▌   ▌ ▌ ▌ ▌ ▙▄  ▙▄▘
- █ ▀ █   ▌ ▌ ▌▚      ▌   ▌ ▌ ▌ ▌ ▌   ▌▚
- █   █   ▘ ▘ ▘ ▘     ▝▀▘ ▝▀  ▀▀  ▀▀▘ ▘ ▘
+ MR      ▙▗▌ ▜▀▖     ▞▀▘ ▞▀▖ ▜▀▖ ▜▀▘ ▜▀▖
+ CODER   ▌▌▌ ▙▄▘     ▌   ▌ ▌ ▌ ▌ ▙▄  ▙▄▘
+         ▌ ▌ ▌▚      ▌   ▌ ▌ ▌ ▌ ▌   ▌▚
+         ▘ ▘ ▘ ▘     ▝▀▘ ▝▀  ▀▀  ▀▀▘ ▘ ▘
 
  Mr Coder v1.0.0
 "

@@ -14,7 +14,7 @@ import { Banner } from './Banner.js';
 import { useBanner } from '../hooks/useBanner.js';
 import { useTips } from '../hooks/useTips.js';
 import { theme } from '../semantic-colors.js';
-import { ThemedGradient } from './ThemedGradient.js';
+import Gradient from 'ink-gradient';
 import { CliSpinner } from './CliSpinner.js';
 
 import { isAppleTerminal } from '@google/gemini-cli-core';
@@ -27,23 +27,20 @@ interface AppHeaderProps {
   showDetails?: boolean;
 }
 
-// mr-coder fork: pixel "M" monogram, replacing the Gemini spark icon.
-const DEFAULT_ICON = `█   █
-█▚ ▞█
-█ ▀ █
-█   █`;
+// mr-coder fork: the header icon is the "MR CODER" wordmark (stacked),
+// replacing the Gemini spark icon. It is rendered in a light-to-medium
+// blue gradient (see renderLogo below), independent of the theme's
+// orange gradient. Plain text, so the Apple Terminal.app line-height
+// padding that breaks block-drawing icons is not a concern; both icon
+// constants are the same for that reason.
+const DEFAULT_ICON = `MR
+CODER`;
 
-/**
- * The default Apple Terminal.app adds significant line-height padding between
- * rows. This breaks Unicode block-drawing characters that rely on vertical
- * adjacency (like half-blocks). This version is perfectly symmetric vertically,
- * which makes the padding gaps look like an intentional "scanline" design
- * rather than a broken image.
- */
-const MAC_TERMINAL_ICON = `█   █
-█▚ ▞█
-█ ▀ █
-█   █`;
+const MAC_TERMINAL_ICON = `MR
+CODER`;
+
+// mr-coder fork: light-to-medium blue gradient for the header wordmark.
+const ICON_GRADIENT_COLORS = ['#7DD3FC', '#60A5FA', '#3B82F6'];
 
 /**
  * The horizontal padding (in columns) required for metadata (version, identity, etc.)
@@ -98,7 +95,9 @@ export const AppHeader = ({ version, showDetails = true }: AppHeaderProps) => {
   const renderLogo = () => (
     <Box flexDirection="row">
       <Box flexShrink={0}>
-        <ThemedGradient>{ICON}</ThemedGradient>
+        <Gradient colors={ICON_GRADIENT_COLORS}>
+          <Text bold>{ICON}</Text>
+        </Gradient>
       </Box>
       {logoTextArt && (
         <Box marginLeft={3}>
