@@ -18,7 +18,8 @@
  *   secondary         darkSecondary #FF8A3C
  *   accent            darkAccent #818CF8  (indigo)
  *   error             darkRed    #FB7185
- *   warning           darkOrange #FBBF24
+ *   warning           darkOrange #FBBF24 in MiMo; mr-coder round 9 makes
+ *                     all theme yellow light blue #7DD3FC (owner request)
  *   success           darkGreen  #FF6A00  (MiMo maps success/string to its orange)
  *   text              darkStep12 #eeeeee
  *   textMuted         darkStep11 #808080
@@ -46,8 +47,8 @@ const palette = {
   secondary: '#FF8A3C',
   accent: '#818CF8',
   red: '#FB7185',
-  warning: '#FBBF24',
-  yellow: '#e5c07b',
+  warning: '#7DD3FC',
+  yellow: '#7DD3FC',
   fg: '#eeeeee',
   muted: '#808080',
   diffAdded: '#4fd6be',

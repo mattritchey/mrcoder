@@ -6,7 +6,7 @@
 
 import type React from 'react';
 import { Box, Text } from 'ink';
-import { ThemedGradient } from './ThemedGradient.js';
+import Gradient from 'ink-gradient';
 import { theme } from '../semantic-colors.js';
 import { formatDuration } from '../utils/formatters.js';
 import {
@@ -26,6 +26,13 @@ import { useSettings } from '../contexts/SettingsContext.js';
 import type { QuotaStats } from '../types.js';
 import { LlmRole, getDisplayString } from '@google/gemini-cli-core';
 
+// mr-coder fork: this display (session stats + the exit summary) uses
+// the same light-to-medium blue as the header wordmark icon instead of
+// the theme's orange gradient/link colors, at the owner's request.
+const STATS_BLUE_GRADIENT = ['#7DD3FC', '#60A5FA', '#3B82F6'];
+const STATS_LABEL_BLUE = '#7DD3FC';
+const STATS_ACCENT_BLUE = '#60A5FA';
+
 // A more flexible and powerful StatRow component
 interface StatRowProps {
   title: string;
@@ -36,7 +43,7 @@ const StatRow: React.FC<StatRowProps> = ({ title, children }) => (
   <Box>
     {/* Fixed width for the label creates a clean "gutter" for alignment */}
     <Box width={28}>
-      <Text color={theme.text.link}>{title}</Text>
+      <Text color={STATS_LABEL_BLUE}>{title}</Text>
     </Box>
     {children}
   </Box>
@@ -272,10 +279,14 @@ export const StatsDisplay: React.FC<StatsDisplayProps> = ({
 
   const renderTitle = () => {
     if (title) {
-      return <ThemedGradient bold>{title}</ThemedGradient>;
+      return (
+        <Gradient colors={STATS_BLUE_GRADIENT}>
+          <Text bold>{title}</Text>
+        </Gradient>
+      );
     }
     return (
-      <Text bold color={theme.text.accent}>
+      <Text bold color={STATS_ACCENT_BLUE}>
         Session Stats
       </Text>
     );
@@ -285,7 +296,11 @@ export const StatsDisplay: React.FC<StatsDisplayProps> = ({
     if (!footer) {
       return null;
     }
-    return <ThemedGradient bold>{footer}</ThemedGradient>;
+    return (
+      <Gradient colors={STATS_BLUE_GRADIENT}>
+        <Text bold>{footer}</Text>
+      </Gradient>
+    );
   };
 
   return (
