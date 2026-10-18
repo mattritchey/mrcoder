@@ -165,6 +165,14 @@ Slash commands provide meta-level control over the CLI itself.
 
 - **Description:** Open Gemini CLI documentation in your browser.
 
+### `/doctor`
+
+- **Description:** (Mr Coder) Run health checks on this install — Node.js
+  runtime, version, authentication, model, model endpoint reachability, context
+  files, folder trust, MCP servers, extensions, git repository, and
+  checkpointing — and print a pass/warn/fail report with a suggested fix for
+  every problem found. The checks never change anything.
+
 ### `/editor`
 
 - **Description:** Open a dialog for selecting supported editors.
@@ -194,6 +202,17 @@ Slash commands provide meta-level control over the CLI itself.
     - **Description:** Uninstall an extension.
   - **`update`**:
     - **Description:** Update extensions. Usage: update <extension-names>|--all
+
+### `/goal`
+
+- **Description:** (Mr Coder) Goal mode, modeled on Kimi Code's `/goal`.
+  `/goal <objective>` stores a persistent objective in `.mr-coder/goal.json` and
+  installs an `AfterAgent` hook in the workspace settings: whenever a turn ends
+  without the completion marker `GOAL COMPLETE`, the hook returns the agent to
+  the goal (bounded by a turn cap, default 25, settable with `--max-turns N`).
+  The hook takes effect from the next launch and requires the folder to be
+  trusted. Subcommands: `status`, `pause`, `resume`, `cancel`, `complete`, and
+  `next <objective>` to queue a follow-up goal.
 
 ### `/help` (or `/?`)
 
@@ -333,6 +352,15 @@ Slash commands provide meta-level control over the CLI itself.
     for privacy or one-off tasks where you don't want to leave any traces.
   - **Usage:** `/quit --delete` or `/exit --delete`
 
+### `/recipe`
+
+- **Description:** (Mr Coder) Recipes, modeled on Goose recipes: parameterized,
+  reusable task templates stored as TOML files in `.mr-coder/recipes/` (project)
+  or `~/.gemini/recipes/` (user). A recipe declares a `prompt` with
+  `{{parameter}}` placeholders and a `[parameters]` table with defaults and
+  required flags. `/recipe` lists recipes, `/recipe show <name>` prints one, and
+  `/recipe run <name> [key=value ...]` renders and submits it.
+
 ### `/restore`
 
 - **Description:** Restores the project files to the state they were in just
@@ -449,10 +477,25 @@ Slash commands provide meta-level control over the CLI itself.
   - **`tools`**:
     - **Description:** Show tool-specific usage statistics.
 
+### `/review`
+
+- **Description:** (Mr Coder) Modeled on Codex's `/review`. Collects the
+  working-tree diff (or the diff against a base ref: `/review main`) and submits
+  it to the agent as a strictly read-only code review — findings with file/line
+  citations, ordered by severity, and no file is modified.
+
 ### `/terminal-setup`
 
 - **Description:** Configure terminal keybindings for multiline input (VS Code,
   Cursor, Windsurf).
+
+### `/transcript`
+
+- **Description:** (Mr Coder) Modeled on hax's inspectable transcript. Exports
+  the model-facing view of the current session — the context files loaded, the
+  tool schemas offered to the model, and the recorded conversation including
+  tool calls and results — to a Markdown file (`/transcript [path]`; default
+  `mr-coder-transcript-<session>.md` in the working directory).
 
 ### `/theme`
 

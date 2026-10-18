@@ -86,13 +86,31 @@ A fork of
    re-enables upstream's blending when the terminal background changes
    mid-session.
 
-8. **Nothing else.** All features, tools, settings, auth, MCP, extensions, and
-   the Gemini wire protocol are unchanged. Functional identifiers keep their
-   upstream names — they are APIs, not branding: workspace packages
-   (`@google/gemini-cli-core`), `GEMINI_*` / `GOOGLE_GEMINI_*` env vars, the
-   `~/.gemini` settings dir, `.geminiignore`, keychain service names, telemetry
-   keys, Google's model IDs (`gemini-2.5-*`, `gemini-3-*`), and real Google
-   service names (Gemini Live API, Gemini Code Assist).
+8. **Blue stats display (round 7):** the session stats / exit summary display
+   (`StatsDisplay.tsx`) uses the header wordmark's light-to-medium blue (#7DD3FC
+   → #60A5FA → #3B82F6) for its title, footer, and row labels instead of the
+   theme's orange gradient/link colors. Status colors (success/error) are
+   unchanged.
+
+9. **Five added slash commands (round 8), each ported from another agent:**
+   `/doctor` health check (Claude Code), `/review` read-only diff review
+   (Codex), `/transcript` model-facing session export (hax), `/recipe`
+   parameterized TOML task templates (Goose), and `/goal` persistent goal mode
+   driven by an AfterAgent continuation hook (Kimi Code). All five are purely
+   additive; no upstream command changed.
+
+10. **No yellow (round 9):** the Mr Coder theme's warning and yellow tokens are
+    light blue #7DD3FC instead of MiMo's amber #FBBF24 / #e5c07b, so
+    warning-styled UI (trust dialog, notices) renders blue. This is a deliberate
+    deviation from the MiMo palette, at the owner's request.
+
+11. **Nothing else.** All features, tools, settings, auth, MCP, extensions, and
+    the Gemini wire protocol are unchanged. Functional identifiers keep their
+    upstream names — they are APIs, not branding: workspace packages
+    (`@google/gemini-cli-core`), `GEMINI_*` / `GOOGLE_GEMINI_*` env vars, the
+    `~/.gemini` settings dir, `.geminiignore`, keychain service names, telemetry
+    keys, Google's model IDs (`gemini-2.5-*`, `gemini-3-*`), and real Google
+    service names (Gemini Live API, Gemini Code Assist).
 
 ## Build & run (from a clone)
 

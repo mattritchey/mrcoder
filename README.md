@@ -93,6 +93,28 @@ mr-coder -p "Run the tests and summarize failures" --output-format json
 Useful slash commands inside a session: `/help`, `/theme`, `/init`,
 `/memory list`, `/memory reload`, `/auth`, `/mcp list`.
 
+## Commands Mr Coder adds
+
+Five commands ported from other coding agents, on top of everything upstream:
+
+- **`/doctor`** (from Claude Code) — health-checks the install: Node runtime,
+  auth, model, endpoint reachability, context files, folder trust, MCP servers,
+  extensions, git, and checkpointing, with a suggested fix for every warning or
+  failure.
+- **`/review [base]`** (from Codex) — a strictly read-only review of your
+  uncommitted changes (or the diff against a base ref). Findings only; no file
+  is ever modified.
+- **`/transcript [path]`** (from hax) — exports the model-facing transcript of
+  the session: the context files loaded, the tool schemas the model was offered,
+  and the full conversation with tool calls and results.
+- **`/recipe`** (from Goose) — reusable, parameterized task templates stored as
+  TOML files in `.mr-coder/recipes/` or `~/.gemini/recipes/`. `/recipe` lists
+  them, `/recipe run <name> key=value` renders and runs one.
+- **`/goal <objective>`** (from Kimi Code) — goal mode: a persistent objective
+  the agent keeps working toward across turns. An `AfterAgent` hook returns it
+  to the goal whenever it stops early, until it reports `GOAL COMPLETE` or the
+  turn cap is hit. `/goal status | pause | resume | cancel | next` manages it.
+
 ## Context files: MR-CODER.md
 
 Put persistent, project-specific instructions in a `MR-CODER.md` file and Mr
@@ -143,10 +165,11 @@ itself.
 See [MR-CODER.md](./MR-CODER.md) for the complete, exact list. In short: the
 name and binary, the branding and word-art, the MiMo-derived default theme, flat
 (unblended) theme colors, `MR-CODER.md` as the primary context filename, and
-nothing else — all features, tools, settings, MCP, extensions, and auth work as
-upstream. Functional identifiers (`GEMINI_*` env vars, the `~/.gemini` config
-directory, workspace package names) intentionally keep their upstream names:
-they are APIs, not branding.
+five added slash commands (`/doctor`, `/review`, `/transcript`, `/recipe`,
+`/goal` — see above). Everything else — features, tools, settings, MCP,
+extensions, and auth — works as upstream. Functional identifiers (`GEMINI_*` env
+vars, the `~/.gemini` config directory, workspace package names) intentionally
+keep their upstream names: they are APIs, not branding.
 
 ## Contributing
 
