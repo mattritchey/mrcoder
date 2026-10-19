@@ -29,6 +29,8 @@ import { LlmRole, getDisplayString } from '@google/gemini-cli-core';
 // mr-coder fork: this display (session stats + the exit summary) uses
 // the same light-to-medium blue as the header wordmark icon instead of
 // the theme's orange gradient/link colors, at the owner's request.
+// Round 10 adds a Token Usage section with session-wide input, cache,
+// and output totals (upstream only breaks tokens down per model).
 const STATS_BLUE_GRADIENT = ['#7DD3FC', '#60A5FA', '#3B82F6'];
 const STATS_LABEL_BLUE = '#7DD3FC';
 const STATS_ACCENT_BLUE = '#60A5FA';
@@ -261,6 +263,17 @@ export const StatsDisplay: React.FC<StatsDisplayProps> = ({
   const computed = computeSessionStats(metrics);
   const settings = useSettings();
 
+  // Session-wide output/total token sums (computeSessionStats already
+  // aggregates input, prompt, and cached across models).
+  const totalOutputTokens = Object.values(models).reduce(
+    (acc, model) => acc + model.tokens.candidates,
+    0,
+  );
+  const totalTokens = Object.values(models).reduce(
+    (acc, model) => acc + model.tokens.total,
+    0,
+  );
+
   const showUserIdentity = settings.merged.ui.showUserIdentity;
 
   const successThresholds = {
@@ -407,6 +420,36 @@ export const StatsDisplay: React.FC<StatsDisplayProps> = ({
           </Text>
         </SubStatRow>
       </Section>
+
+      {Object.keys(models).length > 0 && (
+        <Section title="Token Usage">
+          <StatRow title="Input Tokens:">
+            <Text color={theme.text.primary}>
+              {computed.totalPromptTokens.toLocaleString()}
+            </Text>
+          </StatRow>
+          <StatRow title="Cache Reads:">
+            <Text color={theme.text.primary}>
+              {computed.totalCachedTokens.toLocaleString()}
+            </Text>
+          </StatRow>
+          <StatRow title="Output Tokens:">
+            <Text color={theme.text.primary}>
+              {totalOutputTokens.toLocaleString()}
+            </Text>
+          </StatRow>
+          <StatRow title="Total Tokens:">
+            <Text color={theme.text.primary}>
+              {totalTokens.toLocaleString()}
+            </Text>
+          </StatRow>
+          <StatRow title="Cache Hit Rate:">
+            <Text color={theme.text.primary}>
+              {computed.cacheEfficiency.toFixed(1)}%
+            </Text>
+          </StatRow>
+        </Section>
+      )}
 
       {Object.keys(models).length > 0 && <ModelUsageTable models={models} />}
 

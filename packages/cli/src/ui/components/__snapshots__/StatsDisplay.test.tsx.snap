@@ -117,6 +117,13 @@ exports[`<StatsDisplay /> > Conditional Rendering Tests > hides Efficiency secti
 │    » API Time:               100ms (100.0%)                                                      │
 │    » Tool Time:              0s (0.0%)                                                           │
 │                                                                                                  │
+│  Token Usage                                                                                     │
+│  Input Tokens:               100                                                                 │
+│  Cache Reads:                0                                                                   │
+│  Output Tokens:              100                                                                 │
+│  Total Tokens:               200                                                                 │
+│  Cache Hit Rate:             0.0%                                                                │
+│                                                                                                  │
 │                                                                                                  │
 │  Model Usage                                                                                     │
 │  Use /model to view model quota information                                                      │
@@ -204,6 +211,13 @@ exports[`<StatsDisplay /> > renders a table with two models correctly 1`] = `
 │    » API Time:               19.5s (100.0%)                                                      │
 │    » Tool Time:              0s (0.0%)                                                           │
 │                                                                                                  │
+│  Token Usage                                                                                     │
+│  Input Tokens:               26,000                                                              │
+│  Cache Reads:                10,500                                                              │
+│  Output Tokens:              17,000                                                              │
+│  Total Tokens:               150,043,234                                                         │
+│  Cache Hit Rate:             40.4%                                                               │
+│                                                                                                  │
 │                                                                                                  │
 │  Model Usage                                                                                     │
 │  Use /model to view model quota information                                                      │
@@ -232,6 +246,13 @@ exports[`<StatsDisplay /> > renders all sections when all data is present 1`] = 
 │  Agent Active:               223ms                                                               │
 │    » API Time:               100ms (44.8%)                                                       │
 │    » Tool Time:              123ms (55.2%)                                                       │
+│                                                                                                  │
+│  Token Usage                                                                                     │
+│  Input Tokens:               100                                                                 │
+│  Cache Reads:                50                                                                  │
+│  Output Tokens:              100                                                                 │
+│  Total Tokens:               250                                                                 │
+│  Cache Hit Rate:             50.0%                                                               │
 │                                                                                                  │
 │                                                                                                  │
 │  Model Usage                                                                                     │
@@ -280,6 +301,13 @@ exports[`<StatsDisplay /> > renders role breakdown correctly under models 1`] = 
 │    » API Time:               10.0s (100.0%)                                                      │
 │    » Tool Time:              0s (0.0%)                                                           │
 │                                                                                                  │
+│  Token Usage                                                                                     │
+│  Input Tokens:               1,200                                                               │
+│  Cache Reads:                200                                                                 │
+│  Output Tokens:              2,000                                                               │
+│  Total Tokens:               3,200                                                               │
+│  Cache Hit Rate:             16.7%                                                               │
+│                                                                                                  │
 │                                                                                                  │
 │  Model Usage                                                                                     │
 │  Use /model to view model quota information                                                      │
@@ -308,6 +336,13 @@ exports[`<StatsDisplay /> > resolves gemini-3-flash to gemini-3.5-flash in the m
 │  Agent Active:               3.0s                                                                │
 │    » API Time:               3.0s (100.0%)                                                       │
 │    » Tool Time:              0s (0.0%)                                                           │
+│                                                                                                  │
+│  Token Usage                                                                                     │
+│  Input Tokens:               2,000                                                               │
+│  Cache Reads:                500                                                                 │
+│  Output Tokens:              3,000                                                               │
+│  Total Tokens:               5,000                                                               │
+│  Cache Hit Rate:             25.0%                                                               │
 │                                                                                                  │
 │                                                                                                  │
 │  Model Usage                                                                                     │
