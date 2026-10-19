@@ -104,7 +104,12 @@ A fork of
     warning-styled UI (trust dialog, notices) renders blue. This is a deliberate
     deviation from the MiMo palette, at the owner's request.
 
-11. **Nothing else.** All features, tools, settings, auth, MCP, extensions, and
+11. **Token Usage section (round 10):** the stats display (and the exit summary,
+    which reuses it) has a dedicated Token Usage section with session-wide Input
+    Tokens, Cache Reads, Output Tokens, Total Tokens, and Cache Hit Rate.
+    Upstream only breaks tokens down per model in the Model Usage table.
+
+12. **Nothing else.** All features, tools, settings, auth, MCP, extensions, and
     the Gemini wire protocol are unchanged. Functional identifiers keep their
     upstream names — they are APIs, not branding: workspace packages
     (`@google/gemini-cli-core`), `GEMINI_*` / `GOOGLE_GEMINI_*` env vars, the

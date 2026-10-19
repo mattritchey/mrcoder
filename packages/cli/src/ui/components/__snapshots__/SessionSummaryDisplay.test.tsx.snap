@@ -17,6 +17,13 @@ exports[`<SessionSummaryDisplay /> > renders the summary display with a title 1`
 │    » API Time:               50.2s (100.0%)                                                      │
 │    » Tool Time:              0s (0.0%)                                                           │
 │                                                                                                  │
+│  Token Usage                                                                                     │
+│  Input Tokens:               1,000                                                               │
+│  Cache Reads:                500                                                                 │
+│  Output Tokens:              2,000                                                               │
+│  Total Tokens:               3,500                                                               │
+│  Cache Hit Rate:             50.0%                                                               │
+│                                                                                                  │
 │                                                                                                  │
 │  Model Usage                                                                                     │
 │  Use /model to view model quota information                                                      │
