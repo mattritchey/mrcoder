@@ -35,6 +35,10 @@ import { goalCommand } from '../ui/commands/goalCommand.js';
 import { recipeCommand } from '../ui/commands/recipeCommand.js';
 import { reviewCommand } from '../ui/commands/reviewCommand.js';
 import { transcriptCommand } from '../ui/commands/transcriptCommand.js';
+import { contextCommand } from '../ui/commands/contextCommand.js';
+import { diffCommand } from '../ui/commands/diffCommand.js';
+import { smartApproveCommand } from '../ui/commands/smartApproveCommand.js';
+import { traceCommand } from '../ui/commands/traceCommand.js';
 import { exportSessionCommand } from '../ui/commands/exportSessionCommand.js';
 import { directoryCommand } from '../ui/commands/directoryCommand.js';
 import { editorCommand } from '../ui/commands/editorCommand.js';
@@ -146,6 +150,10 @@ export class BuiltinCommandLoader implements ICommandLoader {
       recipeCommand,
       reviewCommand,
       transcriptCommand,
+      contextCommand,
+      diffCommand,
+      smartApproveCommand,
+      traceCommand,
       exportSessionCommand,
       directoryCommand,
       editorCommand,

@@ -14,7 +14,6 @@ import { Banner } from './Banner.js';
 import { useBanner } from '../hooks/useBanner.js';
 import { useTips } from '../hooks/useTips.js';
 import { theme } from '../semantic-colors.js';
-import Gradient from 'ink-gradient';
 import { CliSpinner } from './CliSpinner.js';
 
 import { isAppleTerminal } from '@google/gemini-cli-core';
@@ -27,20 +26,32 @@ interface AppHeaderProps {
   showDetails?: boolean;
 }
 
-// mr-coder fork: the header icon is the "MR CODER" wordmark (stacked),
-// replacing the Gemini spark icon. It is rendered in a light-to-medium
-// blue gradient (see renderLogo below), independent of the theme's
-// orange gradient. Plain text, so the Apple Terminal.app line-height
-// padding that breaks block-drawing icons is not a concern; both icon
-// constants are the same for that reason.
-const DEFAULT_ICON = `MR
-CODER`;
+// mr-coder fork: the header icon is a pixel-block "MR" ligature
+// (round 11, picked from a generated concept sheet): the M and R share
+// one column of blocks. It is drawn on a 9x5 pixel grid (columns 0-4
+// are the M, columns 4-8 the R, sharing column 4) and compressed to
+// three terminal lines with half-block characters:
+//
+//   100011110
+//   110110001
+//   101011110
+//   100010100
+//   100010010
+//
+// Each rendered line takes one step of the light-to-medium blue
+// gradient, top to bottom (PIXEL_ICON_COLORS). The same icon is used
+// on every terminal, Apple Terminal included; its line-height padding
+// may add slight vertical gaps there, accepted for consistency.
+const DEFAULT_ICON = `█▄ ▄█▀▀▀▄
+█ ▀ █▀█▀
+▀   ▀  ▀`;
 
-const MAC_TERMINAL_ICON = `MR
-CODER`;
+const MAC_TERMINAL_ICON = `█▄ ▄█▀▀▀▄
+█ ▀ █▀█▀
+▀   ▀  ▀`;
 
-// mr-coder fork: light-to-medium blue gradient for the header wordmark.
-const ICON_GRADIENT_COLORS = ['#7DD3FC', '#60A5FA', '#3B82F6'];
+// mr-coder fork: per-line blue gradient for the pixel header icon.
+const PIXEL_ICON_COLORS = ['#7DD3FC', '#60A5FA', '#3B82F6'];
 
 /**
  * The horizontal padding (in columns) required for metadata (version, identity, etc.)
@@ -94,10 +105,16 @@ export const AppHeader = ({ version, showDetails = true }: AppHeaderProps) => {
 
   const renderLogo = () => (
     <Box flexDirection="row">
-      <Box flexShrink={0}>
-        <Gradient colors={ICON_GRADIENT_COLORS}>
-          <Text bold>{ICON}</Text>
-        </Gradient>
+      <Box flexShrink={0} flexDirection="column">
+        {ICON.split('\n').map((line, index) => (
+          <Text
+            key={line}
+            bold
+            color={PIXEL_ICON_COLORS[index % PIXEL_ICON_COLORS.length]}
+          >
+            {line}
+          </Text>
+        ))}
       </Box>
       {logoTextArt && (
         <Box marginLeft={3}>

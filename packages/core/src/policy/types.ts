@@ -324,6 +324,14 @@ export interface PolicyEngineConfig {
   approvalMode?: ApprovalMode;
 
   /**
+   * Whether smart approve is enabled. When true, the policy engine
+   * allows 'low' (read-only) tool calls without prompting via the
+   * smart-approve rule; 'medium' and 'high' calls are unaffected.
+   * Defaults to false (off).
+   */
+  smartApproveEnabled?: boolean;
+
+  /**
    * The sandbox manager instance.
    */
   sandboxManager?: SandboxManager;
@@ -345,6 +353,7 @@ export interface PolicySettings {
     exclude?: string[];
     allowed?: string[];
     confirmationRequired?: string[];
+    smartApprove?: boolean;
   };
   mcpServers?: Record<string, { trust?: boolean }>;
   // User provided policies that will replace the USER level policies in ~/.gemini/policies

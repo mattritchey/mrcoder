@@ -35,6 +35,12 @@ export interface Recipe {
   description: string;
   prompt: string;
   parameters: RecipeParameter[];
+  // Optional, Goose-style self-contained recipe metadata. model is the
+  // model to switch to when the recipe runs; extensions lists MCP server
+  // names the recipe expects to be loaded. Both are empty/absent for
+  // recipes in the original format, which behave exactly as before.
+  model?: string;
+  extensions: string[];
   sourcePath: string;
 }
 
@@ -42,10 +48,65 @@ interface RawRecipe {
   name?: unknown;
   description?: unknown;
   prompt?: unknown;
+  model?: unknown;
+  extensions?: unknown;
   parameters?: Record<
     string,
     { default?: unknown; description?: unknown; required?: unknown }
   >;
+}
+
+function isRecord(value: unknown): value is Record<string, unknown> {
+  return typeof value === 'object' && value !== null && !Array.isArray(value);
+}
+
+function stringList(value: unknown): string[] | undefined {
+  if (!Array.isArray(value)) {
+    return undefined;
+  }
+  const names: string[] = [];
+  for (const item of value) {
+    if (typeof item === 'string' && item.trim()) {
+      names.push(item);
+    }
+  }
+  return names;
+}
+
+function parseModelName(value: unknown): string | undefined {
+  if (typeof value === 'string' && value.trim()) {
+    return value;
+  }
+  if (isRecord(value)) {
+    const name = value['name'];
+    if (typeof name === 'string' && name.trim()) {
+      return name;
+    }
+  }
+  return undefined;
+}
+
+function parseExtensionNames(value: unknown): string[] {
+  const direct = stringList(value);
+  if (direct !== undefined) {
+    return direct;
+  }
+  if (typeof value === 'string' && value.trim()) {
+    return [value];
+  }
+  if (isRecord(value)) {
+    // Table form, e.g. [extensions] with a list under one of these keys.
+    for (const key of ['names', 'servers', 'list', 'enabled', 'items']) {
+      const list = stringList(value[key]);
+      if (list !== undefined) {
+        return list;
+      }
+    }
+    // Table form where each server is a key, e.g. [extensions] with one
+    // entry per server name.
+    return Object.keys(value);
+  }
+  return [];
 }
 
 export function parseRecipeFile(filePath: string): Recipe | null {
@@ -76,6 +137,8 @@ export function parseRecipeFile(filePath: string): Recipe | null {
     description: typeof raw.description === 'string' ? raw.description : '',
     prompt: raw.prompt,
     parameters,
+    model: parseModelName(raw.model),
+    extensions: parseExtensionNames(raw.extensions),
     sourcePath: filePath,
   };
 }
@@ -235,6 +298,35 @@ async function recipeAction(
     const rendered = renderRecipe(recipe, parseAssignments(rest));
     if ('error' in rendered) {
       return message(rendered.error, 'error');
+    }
+    // Self-contained recipe setup, applied only once the prompt rendered
+    // successfully so a failed run has no side effects. The model switch
+    // reuses config.setModel exactly as /model set does (temporary, not
+    // persisted); missing extensions only warn, they never block the run.
+    // Recipes without [model]/[extensions] skip this block entirely and
+    // submit exactly as before.
+    const notes: string[] = [];
+    if (recipe.model) {
+      config.setModel(recipe.model, true);
+      notes.push(`Model switched to ${recipe.model} for this recipe.`);
+    }
+    if (recipe.extensions.length > 0) {
+      const mcpServers = config.getMcpServers() ?? {};
+      const loadedNames = Object.keys(mcpServers);
+      const missing = recipe.extensions.filter(
+        (name) => !loadedNames.includes(name),
+      );
+      if (missing.length > 0) {
+        notes.push(
+          `Warning: recipe extensions not loaded: ${missing.join(', ')}.`,
+        );
+      }
+    }
+    if (notes.length > 0) {
+      context.ui.addItem(
+        { type: MessageType.INFO, text: notes.join('\n') },
+        Date.now(),
+      );
     }
     return { type: 'submit_prompt', content: rendered.prompt };
   }

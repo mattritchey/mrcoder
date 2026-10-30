@@ -131,6 +131,14 @@ Slash commands provide meta-level control over the CLI itself.
   tokens used for future tasks while retaining a high level summary of what has
   happened.
 
+### `/context`
+
+- **Description:** (Mr Coder) Shows a breakdown of what is consuming context in
+  this session — session token totals (prompt, cached, candidates), the number
+  of tools offered, and the context files loaded with their sizes. No
+  context-window limit or usage percentage is shown: no clean accessor for the
+  current model's context window exists in core, so no limit is invented.
+
 ### `/copy`
 
 - **Description:** Copies the last output produced by Gemini CLI to your
@@ -144,6 +152,13 @@ Slash commands provide meta-level control over the CLI itself.
     using your system's package manager.
   - On macOS, it requires `pbcopy`, and on Windows, it requires `clip`. These
     tools are typically pre-installed on their respective systems.
+
+### `/diff`
+
+- **Description:** (Mr Coder) Shows uncommitted changes as a read-only diff in
+  the UI: a stat summary plus the diff itself (truncated at 50,000 characters),
+  with untracked files listed. `/diff stat` prints only the summary. Nothing is
+  modified; outside a git repository it reports an error.
 
 ### `/directory` (or `/dir`)
 
@@ -359,7 +374,11 @@ Slash commands provide meta-level control over the CLI itself.
   or `~/.gemini/recipes/` (user). A recipe declares a `prompt` with
   `{{parameter}}` placeholders and a `[parameters]` table with defaults and
   required flags. `/recipe` lists recipes, `/recipe show <name>` prints one, and
-  `/recipe run <name> [key=value ...]` renders and submits it.
+  `/recipe run <name> [key=value ...]` renders and submits it. A recipe may also
+  declare self-contained metadata: `[model] name` switches the model for that
+  run (temporary, not persisted), and `extensions` lists MCP server names that
+  are checked against the loaded servers — missing ones only warn, they never
+  block the run.
 
 ### `/restore`
 
@@ -463,6 +482,15 @@ Slash commands provide meta-level control over the CLI itself.
     - **Description:** Refresh the list of discovered skills from all tiers
       (workspace, user, and extensions).
 
+### `/smart-approve`
+
+- **Description:** (Mr Coder) Goose-style smart approve. `/smart-approve on`
+  auto-allows low-risk read-only tool calls without prompting; file writes/edits
+  and shell calls still ask exactly as before, and an explicit DENY rule is
+  never overridden. `/smart-approve off` disables it; bare `/smart-approve` (or
+  `status`) reports the current state. Default OFF; the flag persists in user
+  settings.
+
 ### `/stats`
 
 - **Description:** Display detailed statistics for the current Gemini CLI
@@ -488,6 +516,15 @@ Slash commands provide meta-level control over the CLI itself.
 
 - **Description:** Configure terminal keybindings for multiline input (VS Code,
   Cursor, Windsurf).
+
+### `/trace`
+
+- **Description:** (Mr Coder) Raw wire trace, modeled on hax's HAX_TRACE.
+  `/trace on` writes every model request and response to
+  `.mr-coder/wire-trace-<session>.jsonl` (payloads with credentials redacted);
+  `/trace off` stops it; `/trace status` (or bare `/trace`) reports the state
+  and file path. The trace file is created on the next model call. Also starts
+  enabled with `MR_CODER_WIRE_TRACE=1`.
 
 ### `/transcript`
 

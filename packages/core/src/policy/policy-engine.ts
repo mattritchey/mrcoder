@@ -54,6 +54,7 @@ import {
   NoopSandboxManager,
   type SandboxPermissions,
 } from '../services/sandboxManager.js';
+import { evaluateSmartApprove } from './smartApprove.js';
 
 function containsGitCommand(args: string[]): boolean {
   if (!args || args.length === 0) return false;
@@ -248,6 +249,7 @@ export class PolicyEngine {
   private readonly disableAlwaysAllow: boolean;
   private readonly checkerRunner?: CheckerRunner;
   private approvalMode: ApprovalMode;
+  private smartApproveEnabled: boolean;
   private readonly sandboxManager: SandboxManager;
   private readonly isTrustedFolderFn?: () => boolean;
 
@@ -302,6 +304,7 @@ export class PolicyEngine {
     this.disableAlwaysAllow = config.disableAlwaysAllow ?? false;
     this.checkerRunner = checkerRunner;
     this.approvalMode = config.approvalMode ?? ApprovalMode.DEFAULT;
+    this.smartApproveEnabled = config.smartApproveEnabled ?? false;
     this.sandboxManager = config.sandboxManager ?? new NoopSandboxManager();
     this.isTrustedFolderFn = config.isTrustedFolder;
   }
@@ -325,6 +328,22 @@ export class PolicyEngine {
    */
   getApprovalMode(): ApprovalMode {
     return this.approvalMode;
+  }
+
+  /**
+   * Enable or disable smart approve at runtime (e.g. from the
+   * /smart-approve slash command). Toggling does not touch any other
+   * rule: it only gates whether 'low' calls may be auto-allowed.
+   */
+  setSmartApproveEnabled(enabled: boolean): void {
+    this.smartApproveEnabled = enabled;
+  }
+
+  /**
+   * Whether smart approve is currently enabled on this engine.
+   */
+  isSmartApproveEnabled(): boolean {
+    return this.smartApproveEnabled;
   }
 
   private isAlwaysAllowRule(rule: PolicyRule): boolean {
@@ -868,6 +887,35 @@ export class PolicyEngine {
         } else {
           decision = this.defaultDecision;
         }
+      }
+    }
+
+    // Smart approve: this rule ONLY ADDS allows. It upgrades an
+    // ASK_USER decision to ALLOW for 'low' (read-only) calls only, and
+    // defers (returns undefined) for 'medium' and 'high' calls, leaving
+    // their decision untouched. It never overrides DENY, and it runs
+    // before the ALLOW downgrades and safety checkers below, so those
+    // can still downgrade a smart-approved call to ASK_USER or DENY.
+    // In non-interactive mode it does not run at all, so ASK_USER
+    // still becomes DENY there. On any error it keeps ASK_USER
+    // (fail-open to asking, never to allowing).
+    if (
+      decision === PolicyDecision.ASK_USER &&
+      !this.nonInteractive &&
+      this.smartApproveEnabled
+    ) {
+      const smartDecision = evaluateSmartApprove(
+        toolCall.name,
+        toolCall.args,
+        true,
+      );
+      if (smartDecision === PolicyDecision.ALLOW) {
+        decision = PolicyDecision.ALLOW;
+        matchedRule = {
+          toolName: toolCall.name ?? '*',
+          decision: PolicyDecision.ALLOW,
+          source: 'Smart Approve',
+        };
       }
     }
 

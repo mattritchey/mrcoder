@@ -1588,6 +1588,16 @@ const SETTINGS_SCHEMA = {
         description: 'Whether the sandbox is allowed to access the network.',
         showInDialog: true,
       },
+      smartApprove: {
+        type: 'boolean',
+        label: 'Smart Approve',
+        category: 'Tools',
+        requiresRestart: false,
+        default: false,
+        description:
+          'When enabled, low-risk read-only tool calls are allowed without prompting (see /smart-approve). Medium- and high-risk calls still ask.',
+        showInDialog: false,
+      },
       shell: {
         type: 'object',
         label: 'Shell',
