@@ -50,9 +50,134 @@ import {
 import { safeJsonStringify } from '../utils/safeJsonStringify.js';
 import { isMcpToolName } from '../tools/mcp-tool.js';
 import { estimateTokenCountSync } from '../utils/tokenCalculation.js';
+import { appendFileSync, mkdirSync } from 'node:fs';
+import { dirname, join } from 'node:path';
 
 interface StructuredError {
   status: number;
+}
+
+/**
+ * Direction of a wire-trace entry: the request sent to the model, or the
+ * response received back from it.
+ */
+export type WireTraceDirection = 'request' | 'response';
+
+/**
+ * One line of a wire-trace JSONL file.
+ */
+export interface WireTraceEntry {
+  ts: string;
+  direction: WireTraceDirection;
+  model: string;
+  payload: unknown;
+}
+
+const WIRE_TRACE_REDACTED = '[REDACTED]';
+
+/**
+ * Sensitive key suffixes, matched case-insensitively after stripping `_`
+ * and `-`, so `apiKey`, `api_key`, `API_KEY`, `x-goog-api-key`,
+ * `access_token`, and `Authorization` are all redacted.
+ */
+const SENSITIVE_KEY_SUFFIXES = [
+  'authorization',
+  'apikey',
+  'token',
+  'secret',
+  'password',
+];
+
+function isRecord(value: unknown): value is Record<string, unknown> {
+  return typeof value === 'object' && value !== null && !Array.isArray(value);
+}
+
+function isSensitiveWireTraceKey(key: string): boolean {
+  const normalized = key.toLowerCase().replace(/[_-]/g, '');
+  return SENSITIVE_KEY_SUFFIXES.some((suffix) => normalized.endsWith(suffix));
+}
+
+/**
+ * Recursively copies `value`, replacing the value of any field whose key
+ * matches a sensitive key with '[REDACTED]'. The input is never mutated.
+ * Non-sensitive fields, including nested objects and arrays, pass through
+ * unchanged.
+ */
+export function redactWireTraceData(value: unknown): unknown {
+  if (Array.isArray(value)) {
+    return value.map((item) => redactWireTraceData(item));
+  }
+  if (isRecord(value)) {
+    const redacted: Record<string, unknown> = {};
+    for (const [key, entryValue] of Object.entries(value)) {
+      redacted[key] = isSensitiveWireTraceKey(key)
+        ? WIRE_TRACE_REDACTED
+        : redactWireTraceData(entryValue);
+    }
+    return redacted;
+  }
+  return value;
+}
+
+/**
+ * Builds the wire-trace file path for a project root and session id:
+ * `<projectRoot>/.mr-coder/wire-trace-<sessionId first 8>.jsonl`.
+ */
+export function resolveWireTraceFilePath(
+  projectRoot: string,
+  sessionId: string,
+): string {
+  return join(
+    projectRoot,
+    '.mr-coder',
+    `wire-trace-${sessionId.slice(0, 8)}.jsonl`,
+  );
+}
+
+// Module-level wire-trace state, flipped at runtime by the `/trace` slash
+// command. Also starts enabled when MR_CODER_WIRE_TRACE=1.
+let wireTraceEnabled = process.env['MR_CODER_WIRE_TRACE'] === '1';
+let wireTraceFilePath: string | undefined;
+
+export function isWireTraceEnabled(): boolean {
+  return wireTraceEnabled;
+}
+
+export function setWireTraceEnabled(enabled: boolean): void {
+  wireTraceEnabled = enabled;
+}
+
+export function getWireTraceFilePath(): string | undefined {
+  return wireTraceFilePath;
+}
+
+export function setWireTraceFilePath(filePath: string | undefined): void {
+  wireTraceFilePath = filePath;
+}
+
+/**
+ * Appends one redacted JSONL entry to `filePath`, creating parent
+ * directories as needed. Best-effort: any failure is swallowed so tracing
+ * can never break a model call.
+ */
+export function appendWireTraceEntry(
+  filePath: string,
+  direction: WireTraceDirection,
+  model: string,
+  payload: unknown,
+): void {
+  try {
+    const entry: WireTraceEntry = {
+      ts: new Date().toISOString(),
+      direction,
+      model,
+      payload: redactWireTraceData(payload),
+    };
+    mkdirSync(dirname(filePath), { recursive: true });
+    appendFileSync(filePath, `${JSON.stringify(entry)}\n`);
+  } catch {
+    // Tracing is best-effort and must never throw into the model-call path.
+  }
 }
 
 /**
@@ -166,6 +291,47 @@ export class LoggingContentGenerator implements ContentGenerator {
 
   get paidTier(): GeminiUserTier | undefined {
     return this.wrapped.paidTier;
+  }
+
+  /**
+   * Resolves the wire-trace file path from this generator's config, or
+   * undefined when the project root or session id is unavailable.
+   */
+  private resolveWireTraceFilePath(): string | undefined {
+    try {
+      const projectRoot = this.config.getProjectRoot();
+      const sessionId = this.config.getSessionId();
+      if (!projectRoot || !sessionId) {
+        return undefined;
+      }
+      return resolveWireTraceFilePath(projectRoot, sessionId);
+    } catch {
+      return undefined;
+    }
+  }
+
+  /**
+   * Writes one wire-trace entry when tracing is enabled. Best-effort: any
+   * failure is swallowed so tracing can never break a model call.
+   */
+  private traceWire(
+    direction: WireTraceDirection,
+    model: string,
+    payload: unknown,
+  ): void {
+    if (!wireTraceEnabled) {
+      return;
+    }
+    try {
+      const filePath = wireTraceFilePath ?? this.resolveWireTraceFilePath();
+      if (!filePath) {
+        return;
+      }
+      wireTraceFilePath = filePath;
+      appendWireTraceEntry(filePath, direction, model, payload);
+    } catch {
+      // Tracing is best-effort and must never throw into the model-call path.
+    }
   }
 
   private logApiRequest(
@@ -386,6 +552,7 @@ export class LoggingContentGenerator implements ContentGenerator {
           req.config,
           serverDetails,
         );
+        this.traceWire('request', req.model, req);
 
         try {
           const response = await this.wrapped.generateContent(
@@ -418,6 +585,13 @@ export class LoggingContentGenerator implements ContentGenerator {
             req.config,
             serverDetails,
           );
+          this.traceWire('response', response.modelVersion || req.model, {
+            candidates: response.candidates,
+            usageMetadata: response.usageMetadata,
+            responseId: response.responseId,
+            modelVersion: response.modelVersion,
+            promptFeedback: response.promptFeedback,
+          });
           this.config
             .refreshUserQuotaIfStale()
             .catch((e) => debugLogger.debug('quota refresh failed', e));
@@ -487,6 +661,7 @@ export class LoggingContentGenerator implements ContentGenerator {
           req.config,
           serverDetails,
         );
+        this.traceWire('request', req.model, req);
 
         let stream: AsyncGenerator<GenerateContentResponse>;
         try {
@@ -569,6 +744,13 @@ export class LoggingContentGenerator implements ContentGenerator {
         req.config,
         serverDetails,
       );
+      this.traceWire('response', responses[0]?.modelVersion || req.model, {
+        candidates: responses.flatMap((response) => response.candidates || []),
+        usageMetadata: lastUsageMetadata,
+        responseId: responses[0]?.responseId,
+        modelVersion: responses[0]?.modelVersion,
+        promptFeedback: responses[0]?.promptFeedback,
+      });
       this.config
         .refreshUserQuotaIfStale()
         .catch((e) => debugLogger.debug('quota refresh failed', e));

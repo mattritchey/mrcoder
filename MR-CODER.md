@@ -109,7 +109,25 @@ A fork of
     Tokens, Cache Reads, Output Tokens, Total Tokens, and Cache Hit Rate.
     Upstream only breaks tokens down per model in the Model Usage table.
 
-12. **Nothing else.** All features, tools, settings, auth, MCP, extensions, and
+12. **Pixel MR header icon (round 11):** the header icon is a pixel-block MR
+    ligature (the M and R share one column of blocks on a 9x5 grid, rendered as
+    three half-block lines in the wordmark blues), picked by the owner from a
+    generated concept sheet. It replaces the round-6 stacked MR CODER wordmark
+    icon; the title text beside it is unchanged.
+
+13. **Five more additions (round 12), each ported from another agent:** `/diff`
+    browsable working-tree diff (Codex), `/context` context-usage breakdown
+    (Claude Code — token totals, tool count, context files with sizes; no
+    context-window limit or percentage is shown, because no clean accessor for
+    the model's window exists in core and no limit is invented), `/trace` raw
+    wire trace to a per-session JSONL file with credentials redacted (hax),
+    `/smart-approve` Goose-style auto-allow of low-risk read-only tool calls
+    only (default OFF; writes, shell, and explicit DENY rules are untouched),
+    and self-contained recipes (Goose: a recipe may declare its own `[model]`
+    and `extensions`, applied for that run, with missing extensions only
+    warning). All five are purely additive; no upstream command changed.
+
+14. **Nothing else.** All features, tools, settings, auth, MCP, extensions, and
     the Gemini wire protocol are unchanged. Functional identifiers keep their
     upstream names — they are APIs, not branding: workspace packages
     (`@google/gemini-cli-core`), `GEMINI_*` / `GOOGLE_GEMINI_*` env vars, the

@@ -114,6 +114,18 @@ Five commands ported from other coding agents, on top of everything upstream:
   the agent keeps working toward across turns. An `AfterAgent` hook returns it
   to the goal whenever it stops early, until it reports `GOAL COMPLETE` or the
   turn cap is hit. `/goal status | pause | resume | cancel | next` manages it.
+- **`/diff [stat]`** (from Codex) — shows uncommitted changes as a read-only
+  diff in the UI, stat summary first; `stat` prints only the summary.
+- **`/context`** (from Claude Code) — a breakdown of what is consuming context:
+  session token totals, tool count, and context files with sizes.
+- **`/trace [on | off | status]`** (from hax) — writes every model request and
+  response, credentials redacted, to a per-session JSONL trace file.
+- **`/smart-approve [on | off | status]`** (from Goose) — auto-allows low-risk
+  read-only tool calls without prompting. Default OFF; writes, shell calls, and
+  explicit DENY rules are untouched.
+- **Self-contained recipes** (from Goose) — a recipe may declare its own
+  `[model]` and `extensions`, applied for that run, with missing extensions only
+  warning.
 
 ## Context files: MR-CODER.md
 
@@ -164,12 +176,13 @@ itself.
 
 See [MR-CODER.md](./MR-CODER.md) for the complete, exact list. In short: the
 name and binary, the branding and word-art, the MiMo-derived default theme, flat
-(unblended) theme colors, `MR-CODER.md` as the primary context filename, and
-five added slash commands (`/doctor`, `/review`, `/transcript`, `/recipe`,
-`/goal` — see above). Everything else — features, tools, settings, MCP,
-extensions, and auth — works as upstream. Functional identifiers (`GEMINI_*` env
-vars, the `~/.gemini` config directory, workspace package names) intentionally
-keep their upstream names: they are APIs, not branding.
+(unblended) theme colors, `MR-CODER.md` as the primary context filename, and ten
+added slash commands (`/doctor`, `/review`, `/transcript`, `/recipe`, `/goal`,
+`/diff`, `/context`, `/trace`, `/smart-approve`, plus self-contained recipes —
+see above). Everything else — features, tools, settings, MCP, extensions, and
+auth — works as upstream. Functional identifiers (`GEMINI_*` env vars, the
+`~/.gemini` config directory, workspace package names) intentionally keep their
+upstream names: they are APIs, not branding.
 
 ## Contributing
 

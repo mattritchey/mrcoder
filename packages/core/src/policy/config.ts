@@ -641,6 +641,7 @@ export async function createPolicyEngineConfig(
     nonInteractive: !interactive,
     approvalMode,
     disableAlwaysAllow: settings.disableAlwaysAllow,
+    smartApproveEnabled: settings.tools?.smartApprove ?? false,
   };
 }
 interface TomlRule {
